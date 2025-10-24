@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'gamepaused';
+    src: url('../fonts/GamepauseddemoRegular-RpmY6.otf') format(opentype);
+}
+
+h1, h2 {
+    font-family: 'gamepaused';
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /*background-color: #000;*/
+}
+
+.bg-image {
+    /*width: 100vw;*/
+    height: 100vh;
+    /*z-index: -2;*/
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.circular-frame {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.title {
+    flex-direction: column;
+}
+
+/* Images used */
+.retro-tv { background-image: url("../images/retro-tv.png"); filter: grayscale(25%); }
