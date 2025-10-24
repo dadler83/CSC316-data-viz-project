@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interest in Video Games</title>
+
+    <!-- CSS LIBRARIES -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- YOUR CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="content">
+
+    <div class="bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+
+        <!--        <header>-->
+<!--            <div class="navbar">-->
+<!--                <a class="navbar-brand" href="#">-->
+<!--                    <img src="./images/Hamburger_icon.png" alt="navigation opener">-->
+<!--                </a>-->
+
+<!--                <div class="expanded-nav">-->
+<!--                    <ul>-->
+<!--                        <li><a href="#">Start Menu</a></li>-->
+<!--                        <li><a href="#">Our Players</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="question">
+                <h2>What's your favorite game genre?</h2>
+
+                <div class="answer">
+                    <label for="myCombobox"></label>
+                    <input type="text" id="myCombobox" list="genreList" placeholder="Select your genre here!">
+
+                    <datalist id="genreList">
+                        <option value="RPG"></option>
+                        <option value="Survival"></option>
+                        <option value="Strategy"></option>
+                        <option value="Sandbox"></option>
+                    </datalist>
+                    <input id="q0-interaction" type="submit" value="Submit">
+                </div>
+            </div>
+            <div id="spacer0"></div>
+            <img src="./images/gameboys.png" alt="game boys">
+            <svg id="viz0"></svg>
+        </div>
+
+    </div>
+</div>
+
+<!-- embedding JS libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+<!-- d3 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- js -->
+<script src="js/viz0_story.js"></script>
+<!--<script src="js/bar-chart-vis.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+
+</body>
+</html>

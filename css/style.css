@@ -34,7 +34,90 @@ body {
 
 .title {
     flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.start-button {
+    font-family: 'gamepaused';
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.start-button button {
+    width: 100%;
+    border: 3px solid orange;
+    /*background-color: orange;*/
+    border-radius: 30px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
+
+.navbar a img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.navbar a:hover {
+    background-color: #dddd;
+    color: black;
+}
+
+.expanded-nav {
+    display: none;
+}
+
+.navbar ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar ul li {
+    list-style: none;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.question .answer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.question .answer input {
+    margin-left: 0.5rem;
+}
+
+#spacer0 {
+    width: 10%;
+}
+
+input[type=submit] {
+    background-color: orange;
+}
+
+#viz0 {
+    display: none;
 }
 
 /* Images used */
 .retro-tv { background-image: url("../images/retro-tv.png"); filter: grayscale(25%); }
+.retro-game-grid { background-image: url("../images/retro-game-grid.jpg"); background-attachment: fixed; }
