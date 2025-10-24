@@ -114,7 +114,12 @@ input[type=submit] {
     background-color: orange;
 }
 
-#viz0 {
+#vis0, #vis1, #vis2, #vis3 {
+    width: 40vw;
+    height: 50vh;
+}
+
+#vis0 {
     display: none;
 }
 
@@ -124,6 +129,38 @@ input[type=submit] {
 
 .response {
     display: none;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'gamepaused';
+}
+
+.about {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 75%;
+}
+
+.player-label {
+    font-family: 'gamepaused';
+    font-weight: bold;
+    text-align: center;
+    font-size: 4rem;
+}
+
+.about-parent {
+    width: 90%;
+    height: 60%;
+    border-radius: 5%;
+    background-color: #680068;
+}
+
+.about h3 {
+    text-align: center;
+}
+
+h2.about {
+    font-size: 8rem;
 }
 
 /* Images used */
