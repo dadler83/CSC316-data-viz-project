@@ -118,6 +118,14 @@ input[type=submit] {
     display: none;
 }
 
+.vis {
+    color: white;
+}
+
+.response {
+    display: none;
+}
+
 /* Images used */
 .retro-tv { background-image: url("../images/retro-tv.png"); filter: grayscale(25%); }
 .retro-game-grid { background-image: url("../images/retro-game-grid.jpg"); background-attachment: fixed; }

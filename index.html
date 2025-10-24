@@ -17,30 +17,89 @@
 
 <div class="content">
 
-    <div class="bg-image retro-tv d-flex justify-content-center align-items-center">
-        <header>
-            <div class="navbar">
-                <a class="navbar-brand" href="#">
-                    <img src="./images/Hamburger_icon.png" alt="navigation opener">
-                </a>
+    <!--    nav bar     -->
+    <header>
+        <div class="navbar">
+            <a class="navbar-brand" href="#">
+                <img src="./images/Hamburger_icon.png" alt="navigation opener">
+            </a>
 
-                <div class="expanded-nav">
-                    <ul>
-                        <li><a href="#">Start Menu</a></li>
-                        <li><a href="#">Our Players</a></li>
-                    </ul>
-                </div>
+            <div class="expanded-nav">
+                <ul>
+                    <li><a href="#">Start Menu</a></li>
+                    <li><a href="#">Our Players</a></li>
+                </ul>
             </div>
-        </header>
+        </div>
+    </header>
+
+    <!--  Landing page  -->
+    <div class="bg-image retro-tv d-flex justify-content-center align-items-center">
 
         <div class="title">
             <h1>The Video Games We Play</h1>
             <h2>Press start to learn more</h2>
             <div class="start-button">
-                <button onclick="location.href='vis.html';" value="Go to main page">Start</button>
+                <button onclick="window.scrollTo(0, screen.height);" value="Go to main page">Start</button>
             </div>
         </div>
 
+    </div>
+
+    <!--  Vis 0  -->
+    <div class="bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="question">
+                <h2>What's your favorite game genre?</h2>
+
+                <div class="answer">
+                    <label for="myCombobox"></label>
+                    <input type="text" id="myCombobox" list="genreList" placeholder="Select your genre here!">
+
+                    <datalist id="genreList">
+                        <option value="RPG"></option>
+                        <option value="Survival"></option>
+                        <option value="Strategy"></option>
+                        <option value="Sandbox"></option>
+                    </datalist>
+                    <input id="q0-interaction" type="submit" value="Submit">
+                </div>
+            </div>
+            <div class="response">
+                Hmm... your favorite game genre may not be amongst the most popular genres in recent years.
+                You've got some esoteric taste!
+            </div>
+            <div class="response">
+                Wow! |X| genre is one of the most popular genres in recent years.
+                See for yourself!
+            </div>
+            <div id="spacer0"></div>
+            <img src="./images/gameboys.png" alt="game boys">
+            <svg id="viz0"></svg>
+        </div>
+    </div>
+
+    <!--  Vis 1  -->
+    <div class="vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+        <h2>
+            Even amongst the most popular genres though,
+            audiences tend to gravitate toward just a few popular titles.
+        </h2>
+    </div>
+
+    <!--  Vis 2  -->
+    <div class="vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+        <h2>
+            Not all games are created equal.
+        </h2>
+    </div>
+
+    <!--  Vis 3  -->
+    <div class="vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+        <h2>
+            Try picking out your dream games for your budget!
+        </h2>
     </div>
 </div>
 
