@@ -55,8 +55,7 @@
     </div>
 
     <!--  Vis 0  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
-
+    <div id="q0-container" class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
         <div class="d-flex justify-content-center align-items-center">
             <div class="question" id="q0">
                 <h2>What's your favorite game genre?</h2>
@@ -79,6 +78,8 @@
                 <div class="response" id="q0-a0">
                     Hmm... your favorite game genre may not be amongst <br>the most popular genres in recent years.
                     You've got some esoteric taste!
+                    <br>
+                    See what everyone else is playing below!
                 </div>
                 <div class="response" id="q0-a1">
                     Wow! |X| genre is one of the most popular genres in recent years.
@@ -109,10 +110,15 @@
                 <div class="tooltip" id="tooltip"></div>
             </div>
         </div>
+
+        <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center"
+             style="height: 10rem;">
+        </div>
+
     </div>
 
     <!--  Vis 1  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+    <div id="vis1-page-wrapper" class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
         <h2>
             Even amongst the most popular genres though, <br>
             audiences tend to gravitate toward just a few popular titles.

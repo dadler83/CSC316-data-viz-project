@@ -134,15 +134,19 @@ input[type=submit] {
 
 #vis0 {
     display: none;
-    height: 100vh;
+    /*height: 100vh;*/
     color: white;
     /*padding-bottom: 50%;*/
 }
 
 #vis1 {
     /*display: flex;*/
-    height: 200vh;
+    /*height: 200vh;*/
     /*flex-direction: column-reverse;*/
+}
+
+#vis1-page-wrapper {
+    height: 170vh;
 }
 
 .vis {
