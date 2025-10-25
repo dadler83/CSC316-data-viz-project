@@ -1,5 +1,3 @@
-// Donut3D: 3D donut chart component
-// Uses global D3 library (loaded via script tag in HTML)
 
 // Import 3D library from CDN since it's not included in main D3
 import {
@@ -7,11 +5,6 @@ import {
     planes3D
 } from 'https://cdn.skypack.dev/d3-3d@1.0.0';
 
-/*
- * Donut3D - A class for creating 3D donut charts
- * @param selector - the HTML element selector to draw the visualization
- * @param options  - configuration options for the chart
- */
 export class Donut3D {
     constructor(selector, options = {}) {
         // chart dimensions and margins
@@ -63,20 +56,37 @@ export class Donut3D {
             .on('drag', event => this.handleDrag(event))
             .on('start', event => this.handleDragStart(event))
             .on('end', event => this.handleDragEnd(event)));
-        // short description text
-        container.append('p')
-            .attr('class', 'vis1-chart-description')
-            .text('3D Donut Chart: Circle size represents total reviews, height indicates user rating');
+        // improved description text using D3
+        const description = container.append('div')
+            .attr('class', 'vis1-chart-description');
+        
+        description.append('h3')
+            .text('3D Donut Chart Guide:');
+            
+        const descList = description.append('ul');
+        
+        const descItems = [
+            { label: 'Sector Angle:', desc: 'Proportion of total reviews (larger angle = more reviews)' },
+            { label: 'Segment Height:', desc: 'Review score out of 100 (taller = higher rating)' },
+        ];
+        
+        descItems.forEach(item => {
+            const li = descList.append('li');
+            li.append('strong').text(item.label);
+            li.append('span').text(' ' + item.desc);
+        });
         // game details panel
         this.gameDetails = container.append('div')
             .attr('class', 'vis1-game-details');
 
         this.gameDetails.append('h2')
-            .text('Game Details');
+            .text('Selected Game Information');
 
         this.gameDetailsContent = this.gameDetails.append('div')
-            .attr('class', 'vis1-game-details-content')
-            .append('p')
+            .attr('class', 'vis1-game-details-content');
+        
+        // Add initial placeholder
+        this.gameDetailsContent.append('p')
             .attr('class', 'vis1-placeholder')
             .text('Click on a game segment to view details');
     }
@@ -398,17 +408,23 @@ export class Donut3D {
             gameInfo.append('h3')
                 .text(data.name);
 
-            // Add details
+            // Add details with better descriptions
             const details = [
-                {label: 'Total Reviews', value: data.value.toLocaleString()},
-                {label: 'Review Score', value: data.height.toFixed(1) + '/10'},
-                {label: 'Release Date', value: data.releaseDate || 'N/A'},
-                {label: 'Market Share', value: data.percentage.toFixed(1) + '%'}
+                {label: 'Total Reviews', value: data.value.toLocaleString(), desc: '(determines sector angle)'},
+                {label: 'Review Score', value: data.height.toFixed(1) + '/100', desc: '(determines segment height)'},
+                {label: 'Release Date', value: data.releaseDate || 'N/A', desc: ''},
+                {label: 'Market Share', value: data.percentage.toFixed(1) + '% of genre', desc: ''}
             ];
 
             details.forEach(detail => {
-                gameInfo.append('p')
-                    .html(`<strong>${detail.label}:</strong> ${detail.value}`);
+                const p = gameInfo.append('p');
+                p.append('strong').text(detail.label + ': ');
+                p.append('span').text(detail.value);
+                if (detail.desc) {
+                    p.append('span')
+                        .attr('class', 'vis1-detail-desc')
+                        .text(' ' + detail.desc);
+                }
             });
         } else {
             // Show placeholder message
