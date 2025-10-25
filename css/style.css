@@ -12,8 +12,12 @@ h1, h2 {
     box-sizing: border-box;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 body {
-    /*background-color: #000;*/
+    scrollbar-width: none;
 }
 
 .bg-image {
@@ -50,6 +54,15 @@ body {
     border: 3px solid orange;
     /*background-color: orange;*/
     border-radius: 30px;
+}
+
+.sidenav {
+    display: none; /** while debugging*/
+    position: fixed;
+    top: 50vh;
+    right: 1rem;
+    font-size: 1.2rem;
+    z-index: 1000;
 }
 
 .navbar {
