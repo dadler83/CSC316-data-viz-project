@@ -36,7 +36,7 @@
 
         <div class="sidenav">
             <ul id="sidenav-list">
-<!--                <li><a href="#">&middot</a></li>-->
+                <!--                <li><a href="#">&middot</a></li>-->
             </ul>
         </div>
     </header>
@@ -55,21 +55,59 @@
     </div>
 
     <!--  Vis 0  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center" style="display: none;">
-        <div class="container">
-            <h1>How have popular genres changed from 2010-2023?</h1>
-            <div id="chart-container">
-                <svg id="chart"></svg>
+    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="question" id="q0">
+                <h2>What's your favorite game genre?</h2>
+
+                <div class="answer">
+                    <label for="q0-answer-combo"></label>
+                    <input type="text" id="q0-answer-combo" list="genreList" placeholder="Select your genre here!">
+
+                    <datalist id="genreList">
+                        <option value="RPG"></option>
+                        <option value="Survival"></option>
+                        <option value="Strategy"></option>
+                        <option value="Sandbox"></option>
+                    </datalist>
+                    <input id="q0-interaction" type="submit" value="Submit">
+                </div>
             </div>
-            <div class="legend">
-                <h3>Legend / Explanation:</h3>
-                <p><b>X-axis is year</b>, <b>color represents each genre</b>,
-                 the <b>size of each is its relative share of total reviews</b> for that specific year</p>
-                <div id="legend-items"></div>
-                <p class="note">Based on Steam game reviews data. Each layer's height represents the percentage
-                 of total reviews that genre received in that year. Hover over the graph to see details.</p>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="response" id="q0-a0">
+                    Hmm... your favorite game genre may not be amongst <br>the most popular genres in recent years.
+                    You've got some esoteric taste!
+                </div>
+                <div class="response" id="q0-a1">
+                    Wow! |X| genre is one of the most popular genres in recent years.
+                    See for yourself!
+                </div>
             </div>
-            <div class="tooltip" id="tooltip"></div>
+
+            <div id="spacer0"></div>
+            <img id="gameboy-img" src="./images/gameboys.png" alt="game boys">
+        </div>
+    </div>
+
+    <div id="vis0">
+        <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center" style="display: none;">
+            <div class="container">
+                <h1>How have popular genres changed from 2010-2023?</h1>
+                <div id="chart-container">
+                    <svg id="chart"></svg>
+                </div>
+                <div class="legend">
+                    <h3>Legend / Explanation:</h3>
+                    <p><b>X-axis is year</b>, <b>color represents each genre</b>,
+                        the <b>size of each is its relative share of total reviews</b> for that specific year</p>
+                    <div id="legend-items"></div>
+                    <p class="note">Based on Steam game reviews data. Each layer's height represents the percentage
+                        of total reviews that genre received in that year. Hover over the graph to see details.</p>
+                </div>
+                <div class="tooltip" id="tooltip"></div>
+            </div>
         </div>
     </div>
 
@@ -81,17 +119,21 @@
         </h2>
         
         <!-- 3D Donut Chart Visualization -->
-        <div id="vis1-controls"></div>
-        <div id="vis1-chart-container">
-            <div id="vis1-main-chart"></div>
-            <div id="vis1-mini-chart">
-                <div id="vis1-mini-chart-hint">Drag mini chart to rotate view</div>
+        <div id="vis1">
+            <div id="vis1-controls"></div>
+            <div id="vis1-chart-and-details">
+                <div id="vis1-chart-container">
+                    <div id="vis1-main-chart"></div>
+                    <div id="vis1-mini-chart">
+                        <div id="vis1-mini-chart-hint">Drag mini chart to rotate view</div>
+                    </div>
+                </div>
+                <div id="vis1-game-details"></div>
             </div>
+
+            <!-- Tooltip containers -->
+            <div class="vis1-tooltip vis1-tooltip-2d"></div>
         </div>
-        <div id="vis1-game-details"></div>
-        
-        <!-- Tooltip containers -->
-        <div class="vis1-tooltip vis1-tooltip-2d"></div>
     </div>
 
     <!--  Vis 2  -->
