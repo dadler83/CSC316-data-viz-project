@@ -12,6 +12,7 @@
     <!-- YOUR CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/vis1_donut.css">
+    <link rel="stylesheet" href="css/stream_graph_style.css">
 
 </head>
 <body>
@@ -54,51 +55,21 @@
     </div>
 
     <!--  Vis 0  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
-
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="question" id="q0">
-                <h2>What's your favorite game genre?</h2>
-
-                <div class="answer">
-                    <label for="q0-answer-combo"></label>
-                    <input type="text" id="q0-answer-combo" list="genreList" placeholder="Select your genre here!">
-
-                    <datalist id="genreList">
-                        <option value="RPG"></option>
-                        <option value="Survival"></option>
-                        <option value="Strategy"></option>
-                        <option value="Sandbox"></option>
-                    </datalist>
-                    <input id="q0-interaction" type="submit" value="Submit">
-                </div>
+    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center" style="display: none;">
+        <div class="container">
+            <h1>How have popular genres changed from 2010-2023?</h1>
+            <div id="chart-container">
+                <svg id="chart"></svg>
             </div>
-
-            <div class="d-flex justify-content-center align-items-center">
-                <div class="response" id="q0-a0">
-                    Hmm... your favorite game genre may not be amongst <br>the most popular genres in recent years.
-                    You've got some esoteric taste!
-                </div>
-                <div class="response" id="q0-a1">
-                    Wow! |X| genre is one of the most popular genres in recent years.
-                    See for yourself!
-                </div>
+            <div class="legend">
+                <h3>Legend / Explanation:</h3>
+                <p><b>X-axis is year</b>, <b>color represents each genre</b>,
+                 the <b>size of each is its relative share of total reviews</b> for that specific year</p>
+                <div id="legend-items"></div>
+                <p class="note">Based on Steam game reviews data. Each layer's height represents the percentage
+                 of total reviews that genre received in that year. Hover over the graph to see details.</p>
             </div>
-
-            <div id="spacer0"></div>
-            <img id="gameboy-img" src="./images/gameboys.png" alt="game boys">
-
-            <div>
-                <!-- TODO: Populate SVG -->
-                <svg id="vis0">
-                    <style>
-                        .background-rect {
-                            fill: lightblue; /* Set your desired background color */
-                        }
-                    </style>
-                    <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
-                </svg>
-            </div>
+            <div class="tooltip" id="tooltip"></div>
         </div>
     </div>
 
@@ -201,6 +172,7 @@
 <!-- js -->
 <script src="js/sidenav.js"></script>
 <script src="js/vis0_story.js"></script>
+<script src="js/stream_graph.js"></script>
 <script type="module" src="js/vis1_donut.js"></script>
 <!--<script src="js/bar-chart-vis.js"></script>-->
 <!--<script src="js/main.js"></script>-->
