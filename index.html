@@ -11,6 +11,7 @@
 
     <!-- YOUR CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/vis1_donut.css">
 
 </head>
 <body>
@@ -101,16 +102,19 @@
             Even amongst the most popular genres though, <br>
             audiences tend to gravitate toward just a few popular titles.
         </h2>
-
-        <!-- TODO: Populate SVG -->
-        <svg id="vis1">
-            <style>
-                .background-rect {
-                    fill: lightblue; /* Set your desired background color */
-                }
-            </style>
-            <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
-        </svg>
+        
+        <!-- 3D Donut Chart Visualization -->
+        <div id="vis1-controls"></div>
+        <div id="vis1-chart-container">
+            <div id="vis1-main-chart"></div>
+            <div id="vis1-mini-chart">
+                <div id="vis1-mini-chart-hint">Drag mini chart to rotate view</div>
+            </div>
+        </div>
+        <div id="vis1-game-details"></div>
+        
+        <!-- Tooltip containers -->
+        <div class="vis1-tooltip vis1-tooltip-2d"></div>
     </div>
 
     <!--  Vis 2  -->
@@ -129,6 +133,7 @@
             <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
         </svg>
     </div>
+    
 
     <!--  Vis 3  -->
     <div class="vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
@@ -189,6 +194,7 @@
 
 <!-- js -->
 <script src="js/vis0_story.js"></script>
+<script type="module" src="js/vis1_donut.js"></script>
 <!--<script src="js/bar-chart-vis.js"></script>-->
 <!--<script src="js/main.js"></script>-->
 

@@ -1,0 +1,196 @@
+/* ========== VIS1 3D DONUT CHART STYLES ========== */
+
+#vis1-controls {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.vis1-select-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.vis1-select-container label {
+    font-size: 16px;
+    color: #333;
+    font-family: 'gamepaused', sans-serif;
+}
+
+#vis1-genreSelect {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    min-width: 200px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#vis1-genreSelect:hover {
+    border-color: #999;
+}
+
+#vis1-genreSelect:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+}
+
+#vis1-chart-container {
+    position: relative;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+#vis1-main-chart {
+    position: relative;
+}
+
+#vis1-main-chart svg {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+#vis1-mini-chart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#vis1-mini-chart svg {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: grab;
+    border: 2px solid #eee;
+}
+
+#vis1-mini-chart svg:active {
+    cursor: grabbing;
+}
+
+#vis1-mini-chart-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 6px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.vis1-chart-description {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin: 8px 0;
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.vis1-game-details {
+    width: 100%;
+    max-width: 960px;
+    margin: 20px auto;
+    background: rgba(248, 249, 250, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: #333;
+}
+
+.vis1-game-details h2 {
+    margin: 0 0 16px 0;
+    color: #1a1a1a;
+    font-size: 20px;
+    font-family: 'gamepaused', sans-serif;
+}
+
+.vis1-game-details-content {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.vis1-game-info h3 {
+    margin: 0 0 12px 0;
+    color: #2a2a2a;
+    font-size: 18px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    font-family: 'gamepaused', sans-serif;
+}
+
+.vis1-game-info p {
+    margin: 8px 0;
+    color: #444;
+}
+
+.vis1-game-info strong {
+    color: #1a1a1a;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.vis1-game-details-content .vis1-placeholder {
+    color: #666;
+    text-align: center;
+    font-style: italic;
+}
+
+.vis1-tooltip {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    font-size: 12px;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.vis1-tooltip-2d {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    text-align: left;
+    line-height: 1.4;
+    font-size: 13px;
+    color: #333;
+}
+
+/* 3D visualization specific styles */
+.vis1-viz-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.vis1-viz-wrapper .d3-3d {
+    transition: all 0.1s ease;
+}
+
+.vis1-viz-wrapper .d3-3d:hover {
+    filter: brightness(1.1);
+}
