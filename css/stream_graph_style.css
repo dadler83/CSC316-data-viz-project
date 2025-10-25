@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+#chart-container {
+    background-color: white;
+    border: 2px solid #333;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    max-width: 1480px;
+}
+
+#chart {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.legend {
+    width: 100%;
+    max-width: 1480px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #333;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.legend h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.legend p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+#legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.legend-color {
+    width: 30px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-item span {
+    font-size: 14px;
+    color: #333;
+}
+
+.tooltip {
+    position: fixed;
+    background: white;
+    border: 2px solid #333;
+    padding: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 14px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    z-index: 10000;
+}
+
+.tooltip b {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.axis {
+    font-size: 14px;
+}
+
+.axis path,
+.axis line {
+    stroke: #333;
+}
+
+.axis text {
+    fill: #333;
+}
+
+.note {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.genre-layer {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.genre-layer:hover {
+    opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+    }
+    
+    #chart-container {
+        padding: 15px;
+    }
+    
+    .legend {
+        padding: 15px;
+    }
+    
+    #legend-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
