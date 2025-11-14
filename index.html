@@ -149,14 +149,30 @@
         </h2>
 
         <!-- TODO: Populate SVG -->
-        <svg id="vis2">
-            <style>
-                .background-rect {
-                    fill: lightblue; /* Set your desired background color */
-                }
-            </style>
-            <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
-        </svg>
+        <div style="display: flex; width: 100%; height: 100%;">
+            <div style="width: 75%; height: 70%">
+                <div id="vis2" style="width: 100%; height: 100%;">
+                </div>
+                <div class="slider-wrap" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 1rem; text-align: center;">
+                    <label for="intSlider" style="font-size: 24px; font-family: 'gamepaused', sans-serif ">Number of Top Games To Show</label>
+                    <input
+                            id="intSlider"
+                            type="range"
+                            min="2"
+                            max="100"
+                            step="1"
+                            value="10"
+                            style="width: 80%"
+                    />
+                </div>
+                <div style="font-size: 24px; font-family: 'gamepaused', sans-serif; text-align: center;">Showing the Top <span class="value" id="val">10</span> Games from Large and Indie Studios</div>
+            </div>
+
+            <div style="width: 25%; height: 70%; text-align: center; font-family: 'gamepaused', sans-serif; display: flex; align-items: center; justify-content: center;">
+                <h3>Indie games tend to be lower priced and higher reviewed than large studio games.</h3>
+            </div>
+        </div>
+
     </div>
     
 
@@ -221,9 +237,8 @@
 <script src="js/sidenav.js"></script>
 <script src="js/vis0_story.js"></script>
 <script src="js/stream_graph.js"></script>
+<script src="js/shopping-cart-vis.js"></script>
 <script type="module" src="js/vis1_donut.js"></script>
-<!--<script src="js/bar-chart-vis.js"></script>-->
-<!--<script src="js/main.js"></script>-->
 
 </body>
 </html>
