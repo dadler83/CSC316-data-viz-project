@@ -21,12 +21,15 @@ export class Donut2D {
         this.setupGenerators();
     }
 
-    // initialize DOM and interactions
+    // initialize DOM and interactions with Steam theme
     setupVisualization() {
         this.svg = this.container.append('svg')
             .attr('width', this.options.width)
             .attr('height', this.options.height)
-            .attr('class', 'donut2d');
+            .attr('class', 'donut2d')
+            .style('background', 'linear-gradient(135deg, #1b2838, #2a475e)')
+            .style('border-radius', '8px')
+            .style('border', '1px solid rgba(102, 192, 244, 0.3)');
 
         this.svg.call(d3.drag()
             .on('drag', this.handleDrag.bind(this))
