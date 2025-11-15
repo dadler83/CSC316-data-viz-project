@@ -2,6 +2,18 @@
     box-sizing: border-box;
 }
 
+#vis0, #vis0 * {
+    color: black !important;
+}
+
+#vis0 text {
+    fill: black !important;
+}
+
+#vis0 #games-table th {
+    color: white !important;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f5f0;
