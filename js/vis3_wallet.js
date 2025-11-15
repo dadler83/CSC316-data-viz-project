@@ -20,13 +20,72 @@
     };
 
     const billsConfig = [
-        { id: 'free', label: 'Free', value: 0, left: '0%', rotation: '-12deg', layer: 1, type: 'free' },
-        { id: 'one', label: '$1', value: 1, left: '10%', rotation: '-9deg', layer: 2, image: 'images/bills/one_bill.jpg' },
-        { id: 'five', label: '$5', value: 5, left: '24%', rotation: '-4deg', layer: 3, image: 'images/bills/five_bill.jpg' },
-        { id: 'ten', label: '$10', value: 10, left: '38%', rotation: '-1deg', layer: 4, image: 'images/bills/ten_bill.jpg' },
-        { id: 'twenty', label: '$20', value: 20, left: '52%', rotation: '2deg', layer: 5, image: 'images/bills/twenty_bill.jpg' },
-        { id: 'fifty', label: '$50', value: 50, left: '66%', rotation: '6deg', layer: 6, image: 'images/bills/fifty_bill.jpg' },
-        { id: 'hundred', label: '$100', value: 100, left: '80%', rotation: '10deg', layer: 7, image: 'images/bills/hundred_bill.jpg' }
+        {
+            id: 'one',
+            label: '$1',
+            value: 1,
+            left: '5%',
+            rotation: '-12deg',
+            layer: 1,
+            image: 'images/bills/one_bill.jpg',
+            minPrice: 0,
+            maxPrice: 2
+        },
+        {
+            id: 'five',
+            label: '$5',
+            value: 5,
+            left: '18%',
+            rotation: '-7deg',
+            layer: 2,
+            image: 'images/bills/five_bill.jpg',
+            minPrice: 2,
+            maxPrice: 5
+        },
+        {
+            id: 'ten',
+            label: '$10',
+            value: 10,
+            left: '32%',
+            rotation: '-2deg',
+            layer: 3,
+            image: 'images/bills/ten_bill.jpg',
+            minPrice: 5,
+            maxPrice: 10
+        },
+        {
+            id: 'twenty',
+            label: '$20',
+            value: 20,
+            left: '46%',
+            rotation: '2deg',
+            layer: 4,
+            image: 'images/bills/twenty_bill.jpg',
+            minPrice: 10,
+            maxPrice: 20
+        },
+        {
+            id: 'fifty',
+            label: '$50',
+            value: 50,
+            left: '60%',
+            rotation: '6deg',
+            layer: 5,
+            image: 'images/bills/fifty_bill.jpg',
+            minPrice: 20,
+            maxPrice: 50
+        },
+        {
+            id: 'hundred',
+            label: '$100',
+            value: 100,
+            left: '74%',
+            rotation: '10deg',
+            layer: 6,
+            image: 'images/bills/hundred_bill.jpg',
+            minPrice: 50,
+            maxPrice: Number.POSITIVE_INFINITY
+        }
     ];
 
     let games = [];
@@ -51,12 +110,7 @@
             button.dataset.billLabel = billConfig.label;
             button.setAttribute('aria-label', `${billConfig.label} budget`);
 
-            if (billConfig.type === 'free') {
-                const freeCard = document.createElement('div');
-                freeCard.className = 'free-card';
-                freeCard.innerHTML = '<span>FREE</span><span>PLAY</span>';
-                button.appendChild(freeCard);
-            } else if (billConfig.image) {
+            if (billConfig.image) {
                 const img = new Image();
                 img.src = billConfig.image;
                 img.alt = `${billConfig.label} bill`;
@@ -233,12 +287,13 @@
     }
 
     function selectGameForBill(gamesPool, bill) {
-        const candidates = gamesPool.filter((game) => {
-            if (bill.type === 'free') {
-                return isFreeGame(game);
-            }
-            return game.price > 0 && game.price <= bill.value + 0.0001;
-        });
+        const min = typeof bill.minPrice === 'number' ? bill.minPrice : 0;
+        const max =
+            typeof bill.maxPrice === 'number' ? bill.maxPrice : bill.value + Number.EPSILON;
+
+        const candidates = gamesPool.filter(
+            (game) => game.price > min && game.price <= max
+        );
 
         if (!candidates.length) return null;
 
@@ -249,11 +304,6 @@
         });
 
         return candidates[0];
-    }
-
-    function isFreeGame(game) {
-        if (game.price <= 0.5) return true;
-        return game.tags.some((tag) => tag.includes('free to play'));
     }
 
     function handleBillHover(bill) {
@@ -295,8 +345,8 @@
     function updateTooltipPosition(evt, bill) {
         if (tooltip.style.display !== 'block') return;
         const areaRect = walletArea.getBoundingClientRect();
-        const x = evt.clientX - areaRect.left + 15;
-        const y = evt.clientY - areaRect.top - 10;
+        const x = evt.clientX - areaRect.left + 30;
+        const y = evt.clientY - areaRect.top - 30;
         moveTooltip(x, y);
     }
 

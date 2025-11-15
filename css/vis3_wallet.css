@@ -1,6 +1,6 @@
 /* Wallet visualization styles */
 #vis3.wallet-visualization {
-    width: min(60rem, 90vw);
+    width: min(80rem, 95vw);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -70,23 +70,25 @@
 }
 
 .vis3-wallet-area {
+    --wallet-base-height: 11rem;
     width: 100%;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding: 1rem 0 2rem;
+    height: calc(var(--wallet-base-height) + 15rem);
+    margin: 0 auto;
 }
 
 .vis3-bills-layer {
-    position: relative;
-    width: min(38rem, 90%);
+    position: absolute;
+    bottom: calc(var(--wallet-base-height) - 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(70rem, 100%);
     height: 18rem;
 }
 
 .vis3-bill {
     position: absolute;
-    width: clamp(5rem, 10vw, 7.5rem);
+    width: clamp(6rem, 12vw, 11rem);
     padding: 0;
     border: none;
     background: transparent;
@@ -94,13 +96,12 @@
     transform-origin: bottom center;
     transform: rotate(var(--bill-rotation, 0deg));
     transition: transform 0.25s ease, filter 0.25s ease;
-    bottom: 5rem;
+    bottom: -0.5rem;
     left: var(--bill-left, 0%);
     z-index: var(--bill-layer, 1);
 }
 
-.vis3-bill img,
-.vis3-bill .free-card {
+.vis3-bill img {
     width: 100%;
     border-radius: 0.4rem;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
@@ -117,24 +118,6 @@
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
-.free-card {
-    background: linear-gradient(135deg, #b0b0b0, #dcdcdc);
-    color: #111;
-    font-weight: 700;
-    text-align: center;
-    padding: 0.9rem 0.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 2px solid #eee;
-    letter-spacing: 0.3rem;
-}
-
-.free-card span:last-child {
-    font-size: 0.7rem;
-    letter-spacing: 0.1rem;
-}
-
 .vis3-bill:hover,
 .vis3-bill:focus-visible {
     transform: rotate(var(--bill-rotation, 0deg)) translateY(-1rem);
@@ -143,13 +126,17 @@
 }
 
 .vis3-wallet-base {
-    position: relative;
-    width: min(40rem, 95%);
-    height: 8rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(60rem, 95%);
+    height: var(--wallet-base-height);
     background: linear-gradient(135deg, #733b22, #b36b3f);
     border-radius: 1rem 1rem 0.5rem 0.5rem;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4), 0 10px 25px rgba(0, 0, 0, 0.6);
     border: 4px solid #4a2513;
+    z-index: 1;
 }
 
 .vis3-wallet-base::after,
