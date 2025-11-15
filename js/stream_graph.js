@@ -206,8 +206,8 @@ function renderVisualization(topN) {
                             <div class="tooltip-hint">Click to see top 10 games</div>
                         </div>
                     `)
-                    .style("left", (event.pageX + 15) + "px")
-                    .style("top", (event.pageY - 30) + "px");
+                    .style("left", (event.clientX + 15) + "px")
+                    .style("top", (event.clientY - 30) + "px");
             }
         })
         .on("mouseout", function() {
@@ -320,8 +320,8 @@ function showGameDetail(game, event) {
         </div>
     `)
     .style("display", "block")
-    .style("left", (event.pageX + 15) + "px")
-    .style("top", (event.pageY + 15) + "px");
+    .style("left", (event.clientX + 15) + "px")
+    .style("top", (event.clientY + 15) + "px");
     
     event.stopPropagation();
 }
