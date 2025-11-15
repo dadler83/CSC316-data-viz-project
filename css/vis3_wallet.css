@@ -1,0 +1,218 @@
+/* Wallet visualization styles */
+#vis3.wallet-visualization {
+    width: min(80rem, 95vw);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem auto;
+}
+
+.vis3-controls {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(25, 6, 38, 0.75);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.vis3-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 12rem;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.vis3-control select,
+.vis3-control input[type="range"] {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    color: #fff;
+}
+
+.vis3-control select option {
+    color: #000;
+}
+
+.vis3-tier-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.vis3-tier-btn {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: #fff;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    font-weight: 600;
+}
+
+.vis3-tier-btn.active {
+    background: rgba(255, 165, 0, 0.9);
+    border-color: rgba(255, 165, 0, 0.9);
+    color: #1a0630;
+}
+
+.vis3-tier-btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.vis3-wallet-area {
+    --wallet-base-height: 11rem;
+    width: 100%;
+    position: relative;
+    height: calc(var(--wallet-base-height) + 28rem);
+    margin: 32rem auto 12rem auto;  /* top=0, left/right auto, bottom=12rem */
+}
+
+.vis3-bills-layer {
+    position: absolute;
+    bottom: calc(var(--wallet-base-height) - 7rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(70rem, 100%);
+    height: 18rem;
+}
+
+.vis3-bill {
+    position: absolute;
+    width: clamp(6rem, 12vw, 11rem);
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transform-origin: bottom center;
+    transform: rotate(var(--bill-rotation, 0deg));
+    transition: transform 0.25s ease, filter 0.25s ease;
+    bottom: -0.5rem;
+    left: var(--bill-left, 0%);
+    z-index: var(--bill-layer, 1);
+}
+
+.vis3-bill img {
+    width: 100%;
+    border-radius: 0.4rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+}
+
+.vis3-bill .bill-label {
+    position: absolute;
+    top: -1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.vis3-bill:hover,
+.vis3-bill:focus-visible {
+    transform: rotate(var(--bill-rotation, 0deg)) translateY(-1rem);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+    z-index: 20;
+}
+
+.vis3-wallet-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(60rem, 95%);
+    height: var(--wallet-base-height);
+    background: linear-gradient(135deg, #733b22, #b36b3f);
+    border-radius: 1rem 1rem 0.5rem 0.5rem;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4), 0 10px 25px rgba(0, 0, 0, 0.6);
+    border: 4px solid #4a2513;
+    z-index: 1;
+}
+
+.vis3-wallet-base::after,
+.vis3-wallet-base::before {
+    content: "";
+    position: absolute;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 0.2rem;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.vis3-wallet-base::after {
+    top: 1.2rem;
+    opacity: 0.35;
+}
+
+.vis3-wallet-base::before {
+    top: 2.6rem;
+    opacity: 0.25;
+}
+
+#vis3-tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(5, 5, 5, 0.9);
+    color: #fff;
+    border-radius: 0.7rem;
+    padding: 0.75rem 1rem;
+    width: min(18rem, 70vw);
+    font-size: 0.9rem;
+    line-height: 1.3;
+    display: none;
+    z-index: 50;
+}
+
+#vis3-tooltip strong {
+    font-size: 1.05rem;
+}
+
+#vis3-tooltip .vis3-tooltip-meta {
+    font-size: 0.85rem;
+    color: #ffc857;
+    margin-top: 0.15rem;
+}
+
+#vis3-tooltip ul {
+    padding-left: 1rem;
+    margin: 0.35rem 0;
+}
+
+.vis3-status {
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.vis3-status.warning {
+    color: #ffb6b9;
+}
+
+@media (max-width: 768px) {
+    #vis3.wallet-visualization {
+        margin-bottom: 3rem;
+    }
+    .vis3-bill {
+        width: clamp(4.5rem, 20vw, 6rem);
+        bottom: 4rem;
+    }
+
+    .vis3-wallet-base {
+        height: 6rem;
+    }
+
+    .vis3-bill .bill-label {
+        font-size: 0.85rem;
+    }
+}

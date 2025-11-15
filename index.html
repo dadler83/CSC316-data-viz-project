@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/vis1_donut.css">
     <link rel="stylesheet" href="css/stream_graph_style.css">
+    <link rel="stylesheet" href="css/vis3_wallet.css">
 
 </head>
 <body>
@@ -96,18 +97,71 @@
         <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center" style="display: none;">
             <div class="container">
                 <h1>How have popular genres changed from 2010-2023?</h1>
-                <div id="chart-container">
-                    <svg id="chart"></svg>
+
+        <p class="subtitle">Top Steam game genres by total reviews</p>
+
+        <div class="controls">
+            <label for="genre-slider">
+                <strong>Number of Genres:</strong>
+                <span id="genre-count">7</span>
+            </label>
+            <input type="range" id="genre-slider" min="5" max="10" value="7" step="1">
+            <span class="control-hint">Move slider to update visualization</span>
+        </div>
+
+        <div id="chart-container">
+            <svg id="chart"></svg>
+        </div>
+
+        <div class="info-box">
+            <h3>About This Visualization</h3>
+            <p><strong>What you're seeing:</strong> Each colored stream represents one of the top game genres on Steam (dynamically calculated from the data). The height of each stream shows that genre's relative share of total reviews for each year. Use the slider above to adjust how many genres (5-10) you want to visualize - it updates automatically when you release the slider.</p>
+
+            <p class="note">
+                <strong>🖱️ How to interact:</strong>
+            </p>
+            <ul style="margin-top: 5px; color: #555;">
+                <li><strong>Adjust slider</strong> to change the number of genres displayed (5-10) - visualization updates automatically when you release</li>
+                <li><strong>Hover</strong> over any section to see detailed genre stats: percentage share, total reviews, average review score, and estimated revenue for that year</li>
+                <li><strong>Click</strong> on any section to view the top 10 games for that genre in that specific year</li>
+                <li><strong>Click on a game</strong> in the table to see its complete details including tags, pricing, and more</li>
+            </ul>
+
+            <p class="note" style="margin-top: 15px;">
+                Data source: Steam game reviews (2010-2023). Visualization updates dynamically based on user interaction.
+            </p>
+        </div>
+
+        <div class="tooltip" id="tooltip"></div>
+
+        <!-- Modal for Top Games -->
+        <div id="game-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <h2 id="modal-title"></h2>
+                <div class="table-container">
+                    <table id="games-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Game Title</th>
+                                <th>Total Reviews</th>
+                                <th>Review Score</th>
+                                <th>Est. Revenue</th>
+                                <th>Launch Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games-table-body">
+                        </tbody>
+                    </table>
                 </div>
-                <div class="legend">
-                    <h3>Legend / Explanation:</h3>
-                    <p><b>X-axis is year</b>, <b>color represents each genre</b>,
-                        the <b>size of each is its relative share of total reviews</b> for that specific year</p>
-                    <div id="legend-items"></div>
-                    <p class="note">Based on Steam game reviews data. Each layer's height represents the percentage
-                        of total reviews that genre received in that year. Hover over the graph to see details.</p>
-                </div>
-                <div class="tooltip" id="tooltip"></div>
+                <p class="modal-hint">💡 Click on any game to see full details</p>
+            </div>
+        </div>
+
+        <!-- Game Detail Tooltip -->
+        <div id="game-detail-tooltip" class="game-detail-tooltip"></div>
+
             </div>
         </div>
 
@@ -168,32 +222,79 @@
         </h2>
 
         <!-- TODO: Populate SVG -->
-        <svg id="vis2">
-            <style>
-                .background-rect {
-                    fill: lightblue; /* Set your desired background color */
-                }
-            </style>
-            <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
-        </svg>
+        <div style="display: flex; width: 100%; height: 100%;">
+            <div style="width: 75%; height: 70%">
+                <div id="vis2" style="width: 100%; height: 100%;">
+                </div>
+                <div class="slider-wrap" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 1rem; text-align: center;">
+                    <label for="intSlider" style="font-size: 24px; font-family: 'gamepaused', sans-serif ">Number of Top Games To Show</label>
+                    <input
+                            id="intSlider"
+                            type="range"
+                            min="2"
+                            max="100"
+                            step="1"
+                            value="10"
+                            style="width: 80%"
+                    />
+                </div>
+                <div style="font-size: 24px; font-family: 'gamepaused', sans-serif; text-align: center;">Showing the Top <span class="value" id="val">10</span> Games from Large and Indie Studios</div>
+            </div>
+
+            <div style="width: 25%; height: 70%; text-align: center; font-family: 'gamepaused', sans-serif; display: flex; align-items: center; justify-content: center;">
+                <h3>Indie games tend to be lower priced and higher reviewed than large studio games.</h3>
+            </div>
+        </div>
+
     </div>
     
 
     <!--  Vis 3  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
-        <h2>
-            Try picking out your dream games for your budget!
-        </h2>
+    <div id="vis3-page" class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
+        <div id="vis3" class="wallet-visualization">
+            <div id="vis3-title" class="vis3-title">
+                <h2>Try picking out your dream games for your budget!</h2>
+                <p id="vis3-status-text" class="vis3-status">Loading recommendations&hellip;</p>
+            </div>
 
-        <!-- TODO: Populate SVG -->
-        <svg id="vis3">
-            <style>
-                .background-rect {
-                    fill: lightblue; /* Set your desired background color */
-                }
-            </style>
-            <rect x="0" y="0" width="100%" height="100%" class="background-rect" />
-        </svg>
+            <div class="vis3-controls">
+                <div class="vis3-control">
+                    <label for="vis3-genre-filter">Genre filter</label>
+                    <select id="vis3-genre-filter">
+                        <option value="all">All genres</option>
+                    </select>
+                </div>
+                <div class="vis3-control">
+                    <label for="vis3-score-slider">
+                        Min. review score
+                        <span id="vis3-score-value">80</span>
+                    </label>
+                    <input id="vis3-score-slider" type="range" min="40" max="95" value="80">
+                </div>
+                <div class="vis3-control">
+                    <span>Popularity focus</span>
+                    <div class="vis3-tier-buttons" role="group" aria-label="Review tier">
+                        <button type="button" class="vis3-tier-btn active" data-tier="blockbuster">
+                            Blockbuster<br><small>(5000+ reviews)</small>
+                        </button>
+                        <button type="button" class="vis3-tier-btn" data-tier="indie">
+                            Indie<br><small>(500-4999)</small>
+                        </button>
+                        <button type="button" class="vis3-tier-btn" data-tier="sleeper">
+                            Sleeper<br><small>(50-499)</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vis3-wallet-area">
+                <div id="vis3-bills" class="vis3-bills-layer" aria-live="polite"></div>
+                <div class="vis3-wallet-base" aria-hidden="true"></div>
+                <div id="vis3-tooltip"></div>
+            </div>
+
+
+        </div>
     </div>
 
     <!--  About Us  -->
@@ -240,7 +341,9 @@
 <script src="js/sidenav.js"></script>
 <script src="js/vis0_story.js"></script>
 <script src="js/stream_graph.js"></script>
+<script src="js/shopping-cart-vis.js"></script>
 <script type="module" src="js/vis1_donut.js"></script>
+<script src="js/vis3_wallet.js"></script>
 <!--<script src="js/bar-chart-vis.js"></script>-->
 <!--<script src="js/main.js"></script>-->
 
