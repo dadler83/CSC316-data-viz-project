@@ -8,9 +8,9 @@ import {
 export class Donut3D {
     constructor(selector, options = {}) {
         // chart dimensions and margins
-        this.margin = { top: 40, right: 40, bottom: 40, left: 40 };
-        this.width = 960 - this.margin.left - this.margin.right;
-        this.height = 500 - this.margin.top - this.margin.bottom;
+        this.margin = { top: 20, right: 20, bottom: 20, left: 20 };
+        this.width = 900 - this.margin.left - this.margin.right;
+        this.height = 720 - this.margin.top - this.margin.bottom;
 
         // Steam-themed color palette (inspired by Steam's actual colors)
         const steamColors = [
@@ -66,11 +66,12 @@ export class Donut3D {
     }
 
     setupVisualization(selector) {
-        // create container and basic DOM - using global d3
-        const container = d3.select(selector).append('div').attr('class', 'vis1-viz-wrapper');
+        // create container directly without extra wrapper - using global d3
+        const container = d3.select(selector);
 
-    // svg element
+    // svg element (accounting for container padding)
         this.svg = container.append('svg')
+            .attr('class', 'vis1-main-svg')
             .attr('width', this.width + this.margin.left + this.margin.right)
             .attr('height', this.height + this.margin.top + this.margin.bottom);
 
@@ -86,29 +87,13 @@ export class Donut3D {
             .on('drag', event => this.handleDragThrottled(event))
             .on('start', event => this.handleDragStart(event))
             .on('end', event => this.handleDragEnd(event)));
-        // improved description text using D3
-        const description = container.append('div')
-            .attr('class', 'vis1-chart-description');
         
-        description.append('h3')
-            .text('3D Donut Chart Guide:');
-            
-        const descList = description.append('ul');
+        // Select existing game details panel (now in HTML)
+        this.gameDetails = d3.select('#vis1-game-details');
         
-        const descItems = [
-            { label: 'Sector Angle:', desc: 'Proportion of total reviews (larger angle = more reviews)' },
-            { label: 'Segment Height:', desc: 'Review score out of 100 (taller = higher rating)' },
-        ];
+        // Clear any existing content and set up structure
+        this.gameDetails.selectAll('*').remove();
         
-        descItems.forEach(item => {
-            const li = descList.append('li');
-            li.append('strong').text(item.label);
-            li.append('span').text(' ' + item.desc);
-        });
-        // game details panel
-        this.gameDetails = container.append('div')
-            .attr('class', 'vis1-game-details');
-
         this.gameDetails.append('h2')
             .text('Selected Game Information');
 
@@ -161,7 +146,7 @@ export class Donut3D {
     setup3DProjections() {
         const origin = { 
             x: this.width/2, 
-            y: this.height/2 
+            y: this.height/2 - 80  // Move 3D chart up by 80px
         };
         // projection generators
         this.triangles3d = triangles3D()
