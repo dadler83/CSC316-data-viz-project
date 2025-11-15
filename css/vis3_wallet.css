@@ -73,8 +73,8 @@
     --wallet-base-height: 11rem;
     width: 100%;
     position: relative;
-    height: calc(var(--wallet-base-height) + 15rem);
-    margin: 32rem auto;
+    height: calc(var(--wallet-base-height) + 28rem);
+    margin: 32rem auto 12rem auto;  /* top=0, left/right auto, bottom=12rem */
 }
 
 .vis3-bills-layer {
