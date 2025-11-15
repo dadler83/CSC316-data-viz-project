@@ -2,9 +2,9 @@
     box-sizing: border-box;
 }
 
-.container {
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /*background-color: #f5f5f0;*/
+    background-color: #f5f5f0;
     padding: 20px;
     line-height: 1.6;
 }
@@ -20,9 +20,98 @@
 h1 {
     text-align: center;
     font-size: 36px;
-    margin-bottom: 20px;
-    /*color: #333;*/
+    margin-bottom: 10px;
+    color: #333;
     font-weight: 600;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.controls {
+    width: 100%;
+    max-width: 1480px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.controls label {
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#genre-count {
+    display: inline-block;
+    min-width: 25px;
+    text-align: center;
+    font-weight: 700;
+    color: #FF6B6B;
+    font-size: 18px;
+}
+
+#genre-slider {
+    flex: 1;
+    min-width: 200px;
+    height: 8px;
+    border-radius: 5px;
+    background: #ddd;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+#genre-slider::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    cursor: pointer;
+    border: 2px solid #333;
+    transition: all 0.2s;
+}
+
+#genre-slider::-webkit-slider-thumb:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+}
+
+#genre-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    cursor: pointer;
+    border: 2px solid #333;
+    transition: all 0.2s;
+}
+
+#genre-slider::-moz-range-thumb:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+}
+
+.control-hint {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
 }
 
 #chart-container {
@@ -44,7 +133,7 @@ h1 {
     height: auto;
 }
 
-.legend {
+.info-box {
     width: 100%;
     max-width: 1480px;
     padding: 20px;
@@ -53,67 +142,211 @@ h1 {
     box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
     font-size: 14px;
-    position: relative;
-    z-index: 1;
 }
 
-.legend h3 {
+.info-box h3 {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 18px;
     color: #333;
 }
 
-.legend p {
-    margin-bottom: 15px;
+.info-box p {
+    margin-bottom: 10px;
     color: #555;
-}
-
-#legend-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-}
-
-.legend-color {
-    width: 30px;
-    height: 20px;
-    margin-right: 10px;
-    border: 1px solid #333;
-    border-radius: 3px;
-    flex-shrink: 0;
-}
-
-.legend-item span {
-    font-size: 14px;
-    color: #333;
+    line-height: 1.6;
 }
 
 .tooltip {
     position: fixed;
     background: white;
-    border: 2px solid #333;
-    padding: 12px;
+    border: 3px solid #333;
+    padding: 0;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s;
-    font-size: 14px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-    border-radius: 5px;
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+    border-radius: 8px;
     z-index: 10000;
+    min-width: 180px;
+    overflow: hidden;
 }
 
-.tooltip b {
-    display: block;
-    margin-bottom: 5px;
+.tooltip-genre {
+    background: #333;
+    color: white;
+    padding: 10px 15px;
     font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tooltip-details {
+    padding: 12px 15px;
+    font-size: 14px;
     color: #333;
+}
+
+.tooltip-details div {
+    margin: 5px 0;
+}
+
+.tooltip-details strong {
+    color: #000;
+    font-weight: 600;
+}
+
+.tooltip-divider {
+    height: 1px;
+    background: #ddd;
+    margin: 8px 0;
+}
+
+.tooltip-hint {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #999;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 20000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 30px;
+    border: 3px solid #333;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.close {
+    color: #666;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+#modal-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    border-bottom: 3px solid #333;
+    padding-bottom: 10px;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+#games-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#games-table th,
+#games-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#games-table th {
+    background-color: #333;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+#games-table tr:hover {
+    background-color: #f0f0f0;
+}
+
+.game-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.game-row:hover {
+    background-color: #e8f4f8 !important;
+}
+
+.modal-hint {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+/* Game Detail Tooltip */
+.game-detail-tooltip {
+    display: none;
+    position: fixed;
+    background: white;
+    border: 3px solid #333;
+    border-radius: 8px;
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+    z-index: 25000;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.game-detail-header {
+    background: #333;
+    color: white;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.game-detail-content {
+    padding: 15px;
+    font-size: 13px;
+}
+
+.game-detail-row {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.game-detail-row strong {
+    display: inline-block;
+    width: 120px;
+    color: #666;
 }
 
 .axis {
@@ -134,15 +367,19 @@ h1 {
     color: #666;
     margin-top: 10px;
     font-size: 13px;
+    line-height: 1.5;
 }
 
 .genre-layer {
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: all 0.2s ease;
 }
 
-.genre-layer:hover {
-    opacity: 1 !important;
+.genre-label {
+    user-select: none;
+    text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.5),
+        -1px -1px 2px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 768px) {
@@ -150,15 +387,56 @@ h1 {
         font-size: 24px;
     }
     
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .controls label {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    #genre-slider {
+        width: 100%;
+    }
+    
+    .control-hint {
+        width: 100%;
+        text-align: center;
+    }
+    
     #chart-container {
         padding: 15px;
     }
     
-    .legend {
+    .info-box {
         padding: 15px;
     }
     
-    #legend-items {
-        grid-template-columns: repeat(2, 1fr);
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+    
+    #modal-title {
+        font-size: 18px;
+    }
+    
+    #games-table th,
+    #games-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .game-detail-tooltip {
+        max-width: 90%;
+        left: 5% !important;
     }
 }
