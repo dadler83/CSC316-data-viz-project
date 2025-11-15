@@ -12,4 +12,5 @@ q0_submit.addEventListener('click', (e) => {
     a0.style.display = 'block';
     gameboys.style.display = 'none';
     vis.style.display = 'block';
+    window.scrollTo({ top: screen.height, behavior: 'instant' });
 })

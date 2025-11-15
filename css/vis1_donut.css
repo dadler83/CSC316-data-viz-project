@@ -139,7 +139,7 @@
 }
 
 .vis1-game-details {
-    width: 100%;
+    /*width: 100%;*/
     max-width: 960px;
     margin: 20px auto;
     background: rgba(248, 249, 250, 0.95);

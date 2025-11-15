@@ -127,13 +127,26 @@ input[type=submit] {
     background-color: orange;
 }
 
-#vis0, #vis1, #vis2, #vis3 {
+#vis2, #vis3 {
     width: 40vw;
     height: 50vh;
 }
 
 #vis0 {
     display: none;
+    /*height: 100vh;*/
+    color: white;
+    /*padding-bottom: 50%;*/
+}
+
+#vis1 {
+    /*display: flex;*/
+    /*height: 200vh;*/
+    /*flex-direction: column-reverse;*/
+}
+
+#vis1-page-wrapper {
+    height: 170vh;
 }
 
 .vis {
@@ -175,6 +188,16 @@ input[type=submit] {
 h2.about {
     font-size: 8rem;
 }
+
+#gameboy-img {
+    width: 80%;
+    height: 80%;
+}
+
+/*.page {*/
+/*    padding-top: 5rem;*/
+/*    padding-bottom: 5rem;*/
+/*}*/
 
 /* Images used */
 .retro-tv { background-image: url("../images/retro-tv.png"); filter: grayscale(25%); }
