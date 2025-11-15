@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 .vis3-controls {
@@ -74,12 +74,12 @@
     width: 100%;
     position: relative;
     height: calc(var(--wallet-base-height) + 15rem);
-    margin: 0 auto;
+    margin: 32rem auto;
 }
 
 .vis3-bills-layer {
     position: absolute;
-    bottom: calc(var(--wallet-base-height) - 1rem);
+    bottom: calc(var(--wallet-base-height) - 7rem);
     left: 50%;
     transform: translateX(-50%);
     width: min(70rem, 100%);
@@ -109,7 +109,7 @@
 
 .vis3-bill .bill-label {
     position: absolute;
-    bottom: -1.4rem;
+    top: -1.4rem;
     left: 50%;
     transform: translateX(-50%);
     color: #fff;
@@ -200,6 +200,9 @@
 }
 
 @media (max-width: 768px) {
+    #vis3.wallet-visualization {
+        margin-bottom: 3rem;
+    }
     .vis3-bill {
         width: clamp(4.5rem, 20vw, 6rem);
         bottom: 4rem;

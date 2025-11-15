@@ -162,12 +162,13 @@
     
 
     <!--  Vis 3  -->
-    <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
-        <h2>
-            Try picking out your dream games for your budget!
-        </h2>
-
+    <div id="vis3-page" class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
         <div id="vis3" class="wallet-visualization">
+            <div id="vis3-title" class="vis3-title">
+                <h2>Try picking out your dream games for your budget!</h2>
+                <p id="vis3-status-text" class="vis3-status">Loading recommendations&hellip;</p>
+            </div>
+            
             <div class="vis3-controls">
                 <div class="vis3-control">
                     <label for="vis3-genre-filter">Genre filter</label>
@@ -177,7 +178,7 @@
                 </div>
                 <div class="vis3-control">
                     <label for="vis3-score-slider">
-                        Min. review score:
+                        Min. review score
                         <span id="vis3-score-value">80</span>
                     </label>
                     <input id="vis3-score-slider" type="range" min="40" max="95" value="80">
@@ -198,13 +199,13 @@
                 </div>
             </div>
 
-            <p id="vis3-status-text" class="vis3-status">Loading recommendations&hellip;</p>
-
             <div class="vis3-wallet-area">
                 <div id="vis3-bills" class="vis3-bills-layer" aria-live="polite"></div>
                 <div class="vis3-wallet-base" aria-hidden="true"></div>
                 <div id="vis3-tooltip"></div>
             </div>
+
+            
         </div>
     </div>
 

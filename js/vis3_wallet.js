@@ -345,8 +345,8 @@
     function updateTooltipPosition(evt, bill) {
         if (tooltip.style.display !== 'block') return;
         const areaRect = walletArea.getBoundingClientRect();
-        const x = evt.clientX - areaRect.left + 30;
-        const y = evt.clientY - areaRect.top - 30;
+        const x = evt.clientX - areaRect.left + 5;
+        const y = evt.clientY - areaRect.top - 5;
         moveTooltip(x, y);
     }
 
