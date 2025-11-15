@@ -407,7 +407,7 @@ class ShoppingCartVis {
                     indieStr = "Larger Studio";
                 }
 
-                const [mx, my] = d3.pointer(e, svg.node());
+                const [mx, my] = d3.pointer(e, vis.svg.node());
                 vis.showSvgTooltip(mx, my, [
                     `#${ranking + 1} Most popular ${indieStr} Game`,
                     "Review Score: " + d.reviewScore + "%",
