@@ -96,18 +96,69 @@
         <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center" style="display: none;">
             <div class="container">
                 <h1>How have popular genres changed from 2010-2023?</h1>
-                <div id="chart-container">
-                    <svg id="chart"></svg>
+        <p class="subtitle">Top Steam game genres by total reviews</p>
+        
+        <div class="controls">
+            <label for="genre-slider">
+                <strong>Number of Genres:</strong> 
+                <span id="genre-count">7</span>
+            </label>
+            <input type="range" id="genre-slider" min="5" max="10" value="7" step="1">
+            <span class="control-hint">Move slider to update visualization</span>
+        </div>
+        
+        <div id="chart-container">
+            <svg id="chart"></svg>
+        </div>
+        
+        <div class="info-box">
+            <h3>About This Visualization</h3>
+            <p><strong>What you're seeing:</strong> Each colored stream represents one of the top game genres on Steam (dynamically calculated from the data). The height of each stream shows that genre's relative share of total reviews for each year. Use the slider above to adjust how many genres (5-10) you want to visualize - it updates automatically when you release the slider.</p>
+            
+            <p class="note">
+                <strong>🖱️ How to interact:</strong>
+            </p>
+            <ul style="margin-top: 5px; color: #555;">
+                <li><strong>Adjust slider</strong> to change the number of genres displayed (5-10) - visualization updates automatically when you release</li>
+                <li><strong>Hover</strong> over any section to see detailed genre stats: percentage share, total reviews, average review score, and estimated revenue for that year</li>
+                <li><strong>Click</strong> on any section to view the top 10 games for that genre in that specific year</li>
+                <li><strong>Click on a game</strong> in the table to see its complete details including tags, pricing, and more</li>
+            </ul>
+            
+            <p class="note" style="margin-top: 15px;">
+                Data source: Steam game reviews (2010-2023). Visualization updates dynamically based on user interaction.
+            </p>
+        </div>
+        
+        <div class="tooltip" id="tooltip"></div>
+        
+        <!-- Modal for Top Games -->
+        <div id="game-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <h2 id="modal-title"></h2>
+                <div class="table-container">
+                    <table id="games-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Game Title</th>
+                                <th>Total Reviews</th>
+                                <th>Review Score</th>
+                                <th>Est. Revenue</th>
+                                <th>Launch Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games-table-body">
+                        </tbody>
+                    </table>
                 </div>
-                <div class="legend">
-                    <h3>Legend / Explanation:</h3>
-                    <p><b>X-axis is year</b>, <b>color represents each genre</b>,
-                        the <b>size of each is its relative share of total reviews</b> for that specific year</p>
-                    <div id="legend-items"></div>
-                    <p class="note">Based on Steam game reviews data. Each layer's height represents the percentage
-                        of total reviews that genre received in that year. Hover over the graph to see details.</p>
-                </div>
-                <div class="tooltip" id="tooltip"></div>
+                <p class="modal-hint">💡 Click on any game to see full details</p>
+            </div>
+        </div>
+        
+        <!-- Game Detail Tooltip -->
+        <div id="game-detail-tooltip" class="game-detail-tooltip"></div>
             </div>
         </div>
 
