@@ -2,10 +2,12 @@
 class ShoppingCartVis {
     constructor(indieData, bigGameData, containerElement) {
         this.indieData = indieData;
-        indieData.forEach((item) => { item.indie = true; });
+        this.indieData.forEach((item) => { item.indie = true; item.isInCart = false; });
         this.bigGameData = bigGameData;
-        this.bigGameData.forEach((item) => { item.indie = false; });
+        this.bigGameData.forEach((item) => { item.indie = false; item.isInCart = false; });
         this.containerElement = containerElement;
+        this.cartCount = 0;
+        this.minDataIndex = -1;
     }
 
     initVis() {
@@ -28,8 +30,8 @@ class ShoppingCartVis {
         vis.rectWidth = 150;
         vis.rectHeight = 200;
         vis.c = [(vis.width - vis.rectWidth) / 2, (vis.height - vis.rectHeight) / 2];
-        vis.r = Math.min(vis.width / 2 - 250, vis.height / 2 - 120);
-        vis.r = Math.max(100, vis.r)
+        vis.r = Math.min(vis.width / 2 - 300, vis.height / 2 - 120);
+        // vis.r = Math.max(100, vis.r)
         vis._numToDisplay = 10;
 
         vis.indieSpawn = [vis.width - vis.rectWidth, vis.height - vis.rectHeight];
@@ -123,6 +125,77 @@ class ShoppingCartVis {
             .style("font-size", "20px")
             .text("Mean Review Score: 100%");
 
+        vis.shoppingCartX = vis.width - 110;
+        vis.shoppingCartY = vis.height - 140;
+        vis.shoppingCart = vis.svg.append("image")
+            .attr("xlink:href", "../images/shopping-cart-icon.png")
+            .attr("x", vis.shoppingCartX)
+            .attr("y", vis.shoppingCartY)
+            .attr("width", 50)
+            .attr("height", 50);
+        vis.shoppingCartPrice = vis.svg.append("text")
+            .attr("x", vis.width - 70)
+            .attr("y", vis.height - 110)
+            .attr("text-anchor", "right")
+            .attr("fill", "white")
+            .style("font-size", "20px")
+            .text("$100.00");
+
+        // Button group (so rect + text stay together)
+        const button = vis.svg.append("g")
+            .attr("class", "button")
+            .attr("transform", `translate(${vis.width - 100}, ${vis.height - 90})`) // position button
+            .style("cursor", "pointer")              // show pointer on hover
+            .on("click", function() {
+                vis.setDisplayNum(vis._numToDisplay);
+            });
+
+        // Rect as button background
+        button.append("rect")
+            .attr("width", 80)
+            .attr("height", 20)
+            .attr("rx", 8) // rounded corners
+            .attr("ry", 8)
+            .style("fill", "white")
+            .style("stroke", "white")
+            .style("stroke-width", 2);
+
+        // Text label
+        button.append("text")
+            .attr("x", 5)              // center horizontally (half of rect width)
+            .attr("y", 15)              // center vertically
+            .attr("text-anchor", "left")
+            .style("font-size", "16px")
+            .style("fill", "black")
+            .text("Clear Cart");
+
+        const visTip = vis.svg.append("g")
+            .attr("class", "button")
+            .attr("transform", `translate(${vis.width / 2 - 200}, ${vis.height - 15})`) // position button
+            .style("cursor", "pointer")              // show pointer on hover
+            .on("click", function() {
+                vis.setDisplayNum(vis._numToDisplay);
+            });
+
+        // Rect as button background
+        visTip.append("rect")
+            .attr("width", 400)
+            .attr("height", 20)
+            .attr("rx", 8) // rounded corners
+            .attr("ry", 8)
+            .style("fill", "white")
+            .style("stroke", "white")
+            .style("stroke-width", 2);
+
+        // Text label
+        visTip.append("text")
+            .attr("x", 5)              // center horizontally (half of rect width)
+            .attr("y", 15)              // center vertically
+            .attr("text-anchor", "left")
+            .style("font-size", "16px")
+            .style("fill", "black")
+            .text("Hover for more information, Click to add to your cart!");
+
         this.updateVis();
     }
 
@@ -141,6 +214,9 @@ class ShoppingCartVis {
 
     setDisplayNum(num) {
         this._numToDisplay = num;
+        this.indieData.forEach((item) => { item.indie = true; item.isInCart = false; });
+        this.bigGameData.forEach((item) => { item.indie = false; item.isInCart = false; });
+        this.cartCount = 0;
         this.updateVis();
     }
 
@@ -238,11 +314,29 @@ class ShoppingCartVis {
         return sumSoFar / count;
     }
 
+    correctCartPositions(removedPos) {
+        for (let i = 0; i < this.displayData.length; i++) {
+            if (this.displayData[i].isInCart && this.displayData[i].posInCart >= removedPos) {
+                this.displayData[i].posInCart -= 1;
+            }
+        }
+    }
+
+    cartPrice() {
+        let totalPrice = 0.0;
+        for (let i = 0; i < this.displayData.length; i++) {
+            if (this.displayData[i].isInCart) {
+                totalPrice += this.displayData[i].price;
+            }
+        }
+        return totalPrice;
+    }
+
     updateVis() {
         // DATA SETUP
         let vis = this;
         this.displayData = vis.indieData.slice(0, vis._numToDisplay).concat(vis.bigGameData.slice(0, vis._numToDisplay));
-        console.log(this.displayData);
+        // console.log(this.displayData);
 
 
         // ANGLES
@@ -260,6 +354,8 @@ class ShoppingCartVis {
             return vis._pos_on_circle(angle)[x_or_y];
         }
 
+        let cartPositions = this.lerpArray(vis.shoppingCartY, 30, vis._numToDisplay * 2);
+
         // BOX GROUPS
         let boxGroups = vis.svg.selectAll("g.box-item")
             .data(vis.displayData);
@@ -268,7 +364,11 @@ class ShoppingCartVis {
             .append("g")
             // .merge(boxGroups)
             .attr("class", "box-item")
-            .attr("transform", (d, i) => {
+            .attr("transform", function (d, i) {
+                d.originalIndex = Array.from(this.parentNode.children).indexOf(this);
+                if (d.originalIndex < vis.minDataIndex || vis.minDataIndex === -1) {
+                    vis.minDataIndex  = d.originalIndex;
+                }
                 let spawn = null;
                 if (d.indie) {
                     spawn = vis.indieSpawn;
@@ -281,14 +381,20 @@ class ShoppingCartVis {
         entered.merge(boxGroups)
             .on("mouseover", function (e, d) {
                 // console.log(d);
-                this._originalIndex = Array.from(this.parentNode.children).indexOf(this);
                 this.parentNode.appendChild(this);
+                d.selected = true;
 
                 d3.select(this)
                     .transition()
                     .duration(200)
                     .attr("transform", function(d) {
-                        return `translate(${d.cachedAngle[0]},${d.cachedAngle[1]}) scale(1.3)`; // enlarge
+                        let offsetX = 0;
+                        let offsetY = 0;
+                        if (d.isInCart) {
+                            offsetX = vis.rectWidth / 2;
+                            offsetY = vis.rectHeight / 2;
+                        }
+                        return `translate(${d.cachedAngle[0] - offsetX},${d.cachedAngle[1] - offsetY}) scale(1.3)`; // enlarge
                     });
 
                 let ranking = vis.displayData.indexOf(d);
@@ -307,20 +413,36 @@ class ShoppingCartVis {
                     "Review Score: " + d.reviewScore + "%",
                     "Price: $" + d.price,
                 ]);
+
+                boxGroups.select("text")
+                    .text(d => d.name)
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", (d, i) => {
+                        if (!d.isInCart || d.selected) {
+                            return 1.0;
+                        } else {
+                            return 0.0;
+                        }
+                    });
             })
             .on("mousemove", function (e, d) {
                 const [mx, my] = d3.pointer(e, vis.svg.node());
                 vis.moveSvgTooltip(mx, my); // update position continuously
             })
             .on("mouseout", function (e, d) {
+                d.selected = false;
 
                 // Restore to original position
                 const parent = this.parentNode;
                 const children = Array.from(parent.children);
-                const originalIndex = this._originalIndex;
+                const originalIndex = d.originalIndex;
+                const cartIndex = d.posInCart + vis.minDataIndex;
 
-                if (originalIndex !== undefined && originalIndex < children.length) {
+                if (originalIndex !== undefined && originalIndex < children.length && !d.isInCart) {
                     parent.insertBefore(this, children[originalIndex]);
+                } else if (d.isInCart && cartIndex !== undefined && cartIndex < children.length) {
+                    parent.insertBefore(this, children[cartIndex]);
                 }
 
                 vis.hideSvgTooltip();
@@ -328,13 +450,59 @@ class ShoppingCartVis {
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr("transform", d => `translate(${d.cachedAngle[0]},${d.cachedAngle[1]}) scale(1)`); // reset
+                    .attr("transform", d => `translate(${d.cachedAngle[0]},${d.cachedAngle[1]}) scale(${d.cachedScale})`); // reset
+
+                boxGroups.select("text")
+                    .text(d => d.name)
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", (d, i) => {
+                        if (!d.isInCart || d.selected) {
+                            return 1.0;
+                        } else {
+                            return 0.0;
+                        }
+                    });
+            })
+            .on("click", function (e, d) {
+                d.isInCart = !d.isInCart;
+                d.selected = false;
+                if (d.isInCart) {
+                    d.posInCart = vis.cartCount;
+                    vis.cartCount++;
+                } else {
+                    vis.correctCartPositions(d.posInCart);
+                    vis.cartCount--;
+                }
+
+                vis.updateVis();
+            })
+            .attr("rand", function (d, i) {
+                // Restore to original position
+                console.log("running rand")
+                const parent = this.parentNode;
+                const children = Array.from(parent.children);
+                const originalIndex = d.originalIndex;
+                const cartIndex = d.posInCart + vis.minDataIndex;
+
+                if (originalIndex !== undefined && originalIndex < children.length && !d.isInCart) {
+                    parent.insertBefore(this, children[originalIndex]);
+                } else if (d.isInCart && cartIndex !== undefined && cartIndex < children.length) {
+                    parent.insertBefore(this, children[cartIndex]);
+                }
             })
             .transition()
             .duration(1000)
             .attr("transform", (d, i) => {
-                d.cachedAngle = [dataAngle(d, i, 0), dataAngle(d, i, 1)]
-                return `translate(${dataAngle(d, i, 0)},${dataAngle(d, i, 1)})`;
+                if (!d.isInCart) {
+                    d.cachedAngle = [dataAngle(d, i, 0), dataAngle(d, i, 1)];
+                    d.cachedScale = 1.0;
+                    return `translate(${dataAngle(d, i, 0)},${dataAngle(d, i, 1)})`;
+                } else {
+                    d.cachedAngle = [vis.shoppingCartX + 7, cartPositions[d.posInCart] - 30];
+                    d.cachedScale = 0.2;
+                    return `translate(${d.cachedAngle[0]},${d.cachedAngle[1]}) scale(${d.cachedScale})`;
+                }
             });
 
         // GAME CARTS
@@ -379,9 +547,19 @@ class ShoppingCartVis {
             .attr("font-size", "20px")
             .attr("fill", "orange")
             .text(d => d.name);
+
         // UPDATE existing labels
         boxGroups.select("text")
-            .text(d => d.name);
+            .text(d => d.name)
+            .transition()
+            .duration(200)
+            .attr("opacity", (d, i) => {
+                if (!d.isInCart || d.selected) {
+                    return 1.0;
+                } else {
+                    return 0.0;
+                }
+            });
 
         boxGroups.exit().remove();
 
@@ -389,6 +567,7 @@ class ShoppingCartVis {
         vis.bigGameRevScoreMean.text(`Mean Review Score: ${vis.meanScore(false).toFixed(2)}%`);
         vis.indiePriceMean.text(`Mean Price: $${vis.meanPrice(true).toFixed(2)}`);
         vis.indieRevScoreMean.text(`Mean Review Score: ${vis.meanScore(true).toFixed(2)}%`);
+        vis.shoppingCartPrice.text(`$${vis.cartPrice().toFixed(2)}`);
     }
 }
 
