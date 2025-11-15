@@ -10,6 +10,11 @@
     fill: black !important;
 }
 
+#vis0 .container h1,
+#vis0 .container .subtitle {
+    color: white !important;
+}
+
 #vis0 #games-table th {
     color: white !important;
 }
