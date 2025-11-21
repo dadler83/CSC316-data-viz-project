@@ -37,7 +37,7 @@ export class Donut3D {
             tooltipFormat: options.tooltipFormat || ((d) => d.name || '')
         };
 
-    // internal state
+        // internal state
         this.currentData = null;
         this.selectedSegmentId = null;
         this.mouseX = 0;
@@ -56,9 +56,6 @@ export class Donut3D {
         // Gaming theme properties
         this.hoveredSegment = null;
         this.glowFilter = null;
-        
-        // Anti-flicker properties
-        // Hover state for segments
 
         // Set up the visualization
         this.setupVisualization(selector);
@@ -69,7 +66,7 @@ export class Donut3D {
         // create container directly without extra wrapper - using global d3
         const container = d3.select(selector);
 
-    // svg element (accounting for container padding)
+        // svg element (accounting for container padding)
         this.svg = container.append('svg')
             .attr('class', 'vis1-main-svg')
             .attr('width', this.width + this.margin.left + this.margin.right)
@@ -146,7 +143,7 @@ export class Donut3D {
     setup3DProjections() {
         const origin = { 
             x: this.width/2, 
-            y: this.height/2 - 80  // Move 3D chart up by 80px
+            y: this.height/2 - 80
         };
         // projection generators
         this.triangles3d = triangles3D()
@@ -166,10 +163,10 @@ export class Donut3D {
         const trianglesList = [];
         const planesList = [];
         
-    // compute total
+        // compute total
         const totalValue = data.reduce((sum, d) => sum + d.value, 0);
         
-    // height normalization settings
+        // height normalization settings
         const BASE_HEIGHT = 40;
         const MAX_HEIGHT_RANGE = 60;
         
@@ -186,7 +183,6 @@ export class Donut3D {
             return (BASE_HEIGHT + normalizedValue) * heightScale;
         });
 
-    // build segment shapes
         let angle = 0;
         let lastSegment = null;
 
@@ -280,12 +276,10 @@ export class Donut3D {
 
     // Throttled drag handler for better performance
     handleDragThrottled(event) {
-        // Cancel any pending animation frame
         if (this.animationFrame) {
             cancelAnimationFrame(this.animationFrame);
         }
 
-        // Schedule update for next frame
         this.animationFrame = requestAnimationFrame(() => {
             this.handleDrag(event);
             this.animationFrame = null;
@@ -296,7 +290,6 @@ export class Donut3D {
     handleDrag(event) {
         const now = performance.now();
         
-        // Throttle updates to ~60fps
         if (now - this.lastUpdateTime < 16) {
             return;
         }
@@ -307,13 +300,11 @@ export class Donut3D {
         const dy = event.y - this.my + this.mouseY;
         this.rotationX = dy * Math.PI / 230 * (-1);
 
-        // Apply rotation
         const rotatedData = {
             triangles: this.triangles3d.rotateX(this.rotationX + this.options.startRotationX)(this.triangles),
             planes: this.planes3d.rotateX(this.rotationX + this.options.startRotationX)(this.planes)
         };
 
-        // Update visualization without transition for smooth rotation
         this.updateShapesOptimized(rotatedData);
     }
 
@@ -326,7 +317,6 @@ export class Donut3D {
         [this.mouseX, this.mouseY] = [event.x - this.mx + this.mouseX, event.y - this.my + this.mouseY];
         this.isRotating = false;
         
-        // Clean up any pending animation frame
         if (this.animationFrame) {
             cancelAnimationFrame(this.animationFrame);
             this.animationFrame = null;
@@ -335,20 +325,15 @@ export class Donut3D {
 
     // Allow external control of Y-rotation (used to sync with 2D donut)
     setRotation(angleRad) {
-        // store rotation (radians)
         this.rotationY = angleRad || 0;
 
-        // if shapes haven't been created yet, nothing to update
         if (!this.triangles || !this.planes) return;
 
-        // Cancel any pending animation
         if (this.animationFrame) {
             cancelAnimationFrame(this.animationFrame);
         }
 
-        // Use requestAnimationFrame for smooth external rotation
         this.animationFrame = requestAnimationFrame(() => {
-            // Apply rotation on both axes using current rotationX and rotationY
             const rotated = {
                 triangles: this.triangles3d
                     .rotateX(this.rotationX + this.options.startRotationX)
@@ -358,7 +343,6 @@ export class Donut3D {
                     .rotateY(this.rotationY + this.options.startRotationY)(this.planes)
             };
 
-            // Update visualization immediately (no transition)
             this.updateShapesOptimized(rotated);
             this.animationFrame = null;
         });
@@ -373,10 +357,8 @@ export class Donut3D {
             segments: options.segments || 1
         };
 
-        // Store current data
         this.currentData = data;
 
-        // Generate shapes
         const shapes = this.createDonutShapes(
             data,
             config.innerRadius,
@@ -385,23 +367,19 @@ export class Donut3D {
             config.segments
         );
 
-        // Store shapes
         this.triangles = shapes.triangles;
         this.planes = shapes.planes;
 
-        // Project shapes to 3D
         const projectedShapes = {
             triangles: this.triangles3d(shapes.triangles),
             planes: this.planes3d(shapes.planes)
         };
 
-        // Update visualization
         this.updateShapes(projectedShapes, this.options.transitionTime);
     }
 
     // Update the shapes in the visualization
     updateShapes(shapes, transitionDuration) {
-        // Update triangles (caps)
         this.updatePathElements(
             shapes.triangles,
             'caps',
@@ -409,7 +387,6 @@ export class Donut3D {
             transitionDuration
         );
 
-        // Update planes (faces)
         this.updatePathElements(
             shapes.planes,
             'faces',
@@ -417,10 +394,8 @@ export class Donut3D {
             transitionDuration
         );
 
-        // Sort all elements for proper 3D rendering
         this.group.selectAll('.d3-3d').sort(this.triangles3d.sort);
 
-        // Restore selection if needed
         if (this.selectedSegmentId !== null) {
             this.highlightSegment(this.selectedSegmentId);
         }
@@ -428,18 +403,15 @@ export class Donut3D {
 
     // Optimized update method for real-time rotation (no transitions)
     updateShapesOptimized(shapes) {
-        // Skip expensive operations during rotation
         if (this.isRotating) {
-            // Clear hover effects during rotation to prevent flicker
+
             if (this.hoveredSegment) {
                 this.hoveredSegment = null;
             }
             
-            // Only update paths, skip sorting and other expensive operations
             this.updatePathElementsOptimized(shapes.triangles, 'caps', this.triangles3d.draw);
             this.updatePathElementsOptimized(shapes.planes, 'faces', this.planes3d.draw);
         } else {
-            // Full update when not rotating
             this.updateShapes(shapes, 0);
         }
     }
@@ -447,8 +419,7 @@ export class Donut3D {
     // Helper to update path elements
     updatePathElements(data, className, drawFunction, duration) {
         const elements = this.group.selectAll(`path.${className}`).data(data, d => d.id);
-        
-        // Enter new elements
+
         const enterElements = elements.enter()
             .append('path')
             .attr('class', className)
@@ -456,7 +427,6 @@ export class Donut3D {
             .attr('stroke', 'none')
             .attr('fill-opacity', 0);
 
-        // Update elements with gaming-style interactions
         enterElements.merge(elements)
             .on('click', (event, d) => this.handleSegmentClick(d))
             .on('mouseover', (event, d) => this.handleSegmentHover(d, true))
@@ -469,7 +439,6 @@ export class Donut3D {
             .attr('fill-opacity', 1)
             .attr('d', drawFunction);
 
-        // Remove old elements
         elements.exit().remove();
     }
 
@@ -477,24 +446,20 @@ export class Donut3D {
     updatePathElementsOptimized(data, className, drawFunction) {
         const elements = this.group.selectAll(`path.${className}`).data(data, d => d.id);
         
-        // Only update existing elements, no enter/exit during rotation
         elements.attr('d', drawFunction);
     }
 
     // Robust anti-flicker hover system
     handleSegmentHover(d, isHover) {
-        // Skip hover effects during rotation
         if (this.isRotating) return;
         
         const segmentId = d.id.split('-')[1];
         
         if (isHover) {
-            // Only apply hover if it's a different segment
             if (segmentId !== this.hoveredSegment) {
                 this.setHoverState(segmentId);
             }
         } else {
-            // Clear hover only if leaving the currently hovered segment
             if (segmentId === this.hoveredSegment) {
                 this.setHoverState(null);
             }
@@ -506,15 +471,11 @@ export class Donut3D {
         // If no change, do nothing
         if (this.hoveredSegment === segmentId) return;
 
-        // Remove old hover effect
         if (this.hoveredSegment !== null) {
             this.applySegmentStyle(this.hoveredSegment, 'normal');
         }
-
-        // Set new hover state
         this.hoveredSegment = segmentId;
 
-        // Apply new hover effect
         if (segmentId !== null && segmentId !== this.selectedSegmentId) {
             this.applySegmentStyle(segmentId, 'hover');
         }
@@ -574,10 +535,8 @@ export class Donut3D {
 
     // Gaming-style segment highlighting using centralized system
     highlightSegmentGaming(segmentId) {
-        // Clear hover state first
         this.setHoverState(null);
         
-        // Apply selection style
         this.applySegmentStyle(segmentId, 'selected');
     }
 
@@ -588,10 +547,8 @@ export class Donut3D {
 
     // Clear segment highlighting with gaming effects
     clearHighlight() {
-        // Clear hover state
         this.setHoverState(null);
         
-        // Reset all paths to normal state
         this.group.selectAll('path')
             .style('stroke', 'none')
             .style('stroke-width', '0')
@@ -601,20 +558,16 @@ export class Donut3D {
 
     // Update game details display
     updateGameDetails(data) {
-        // Clear existing content
         this.gameDetailsContent.selectAll('*').remove();
 
         if (data) {
-            // Create game info container
             const gameInfo = this.gameDetailsContent
                 .append('div')
                 .attr('class', 'vis1-game-info');
 
-            // Add title
             gameInfo.append('h3')
                 .text(data.name);
 
-            // Add details with better descriptions
             const details = [
                 {label: 'Total Reviews', value: data.value.toLocaleString(), desc: '(determines sector angle)'},
                 {label: 'Review Score', value: data.height.toFixed(1) + '/100', desc: '(determines segment height)'},
@@ -633,7 +586,6 @@ export class Donut3D {
                 }
             });
         } else {
-            // Show placeholder message
             this.gameDetailsContent
                 .append('p')
                 .attr('class', 'vis1-placeholder')
@@ -643,25 +595,19 @@ export class Donut3D {
 
     // Cleanup method to prevent memory leaks
     destroy() {
-        // Cancel any pending animation frames
         if (this.animationFrame) {
             cancelAnimationFrame(this.animationFrame);
             this.animationFrame = null;
         }
 
-        // Clear hover state
-
-        // Clear color cache
         if (this.colorCache) {
             this.colorCache.clear();
         }
 
-        // Remove event listeners
         if (this.svg) {
             this.svg.on('.drag', null);
         }
 
-        // Clear internal state
         this.isRotating = false;
         this.triangles = [];
         this.planes = [];

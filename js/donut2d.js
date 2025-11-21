@@ -1,5 +1,3 @@
-// Donut2D: 2D donut chart component  
-// Uses global D3 library (loaded via script tag in HTML)
 
 export class Donut2D {
     constructor(selector, options = {}) {

@@ -215,28 +215,78 @@
     text-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
 }
 
-#vis1-mini-chart {
+#vis1-mini-wrapper {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
+    top: 20px;
+    right: 20px;
+    z-index: 20;
     display: flex;
     flex-direction: column;
     align-items: center;
+    pointer-events: none;
+}
+
+#vis1-mini-chart {
+    position: relative;
+    z-index: 21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: auto;
+    margin-bottom: 8px;
 }
 
 #vis1-mini-chart svg {
     box-shadow: 
         0 0 15px rgba(102, 192, 244, 0.4),
         0 4px 15px rgba(0, 0, 0, 0.6);
-    border-radius: 8px;
+    border-radius: 50%;
     background: linear-gradient(135deg, #1b2838, #2a475e) !important;
     cursor: grab;
     border: 2px solid rgba(102, 192, 244, 0.5);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#vis1-mini-chart svg:hover {
+    border-color: #66c0f4;
+    box-shadow: 0 0 20px rgba(102, 192, 244, 0.6);
 }
 
 #vis1-mini-chart svg:active {
     cursor: grabbing;
+}
+
+.vis1-interaction-hint {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(102, 192, 244, 0.4);
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(4px);
+}
+
+.hint-icon {
+    color: #ff006e;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.hint-text {
+    color: #66c0f4;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
+}
+
+@keyframes floatHint {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
 }
 
 .vis1-chart-description {
