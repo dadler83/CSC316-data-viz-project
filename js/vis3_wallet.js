@@ -135,7 +135,7 @@
 
             button.addEventListener('mouseenter', () => handleBillHover(button));
             button.addEventListener('focus', () => handleBillHover(button));
-            button.addEventListener('mousemove', (evt) => updateTooltipPosition(evt, button));
+            button.addEventListener('mousemove', (evt) => updateTooltipPosition(evt));
             button.addEventListener('mouseleave', hideTooltip);
             button.addEventListener('blur', hideTooltip);
 
@@ -353,27 +353,28 @@
         return parsed.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
     }
 
-    function updateTooltipPosition(evt, bill) {
+    function updateTooltipPosition(evt) {
         if (tooltip.style.display !== 'block') return;
-        const areaRect = walletArea.getBoundingClientRect();
-        const x = evt.clientX - areaRect.left + 5;
-        const y = evt.clientY - areaRect.top - 5;
+        const x = evt.clientX + 12;
+        const y = evt.clientY + 12;
         moveTooltip(x, y);
     }
 
     function positionTooltipFromBill(bill) {
         const billRect = bill.getBoundingClientRect();
-        const areaRect = walletArea.getBoundingClientRect();
-        const x = billRect.left - areaRect.left + billRect.width / 2;
-        const y = billRect.top - areaRect.top - 10;
+        const x = billRect.left + billRect.width / 2;
+        const y = billRect.top - 12;
         moveTooltip(x, y);
     }
 
     function moveTooltip(x, y) {
-        const maxX = walletArea.clientWidth - tooltip.offsetWidth - 10;
-        const maxY = walletArea.clientHeight - tooltip.offsetHeight - 10;
-        tooltip.style.left = `${Math.max(10, Math.min(x, Math.max(10, maxX)))}px`;
-        tooltip.style.top = `${Math.max(10, Math.min(y, Math.max(10, maxY)))}px`;
+        const padding = 12;
+        const maxX = window.innerWidth - tooltip.offsetWidth - padding;
+        const maxY = window.innerHeight - tooltip.offsetHeight - padding;
+        const clampedX = Math.max(padding, Math.min(x, maxX));
+        const clampedY = Math.max(padding, Math.min(y, maxY));
+        tooltip.style.left = `${clampedX}px`;
+        tooltip.style.top = `${clampedY}px`;
     }
 
     function hideTooltip() {
