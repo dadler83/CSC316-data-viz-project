@@ -1,9 +1,5 @@
-/* ========== VIS1 3D DONUT CHART - GAMING THEME STYLES ========== */
-
-/* Import gaming font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Russo+One&display=swap');
 
-/* Bootstrap flexbox replacements */
 .d-flex {
     display: flex !important;
 }
@@ -21,7 +17,6 @@
 }
 
 #vis1-controls {
-    /* Position handled by parent #vis1-bottom-container */
     flex-shrink: 0;
     z-index: 10;
 }
@@ -111,7 +106,6 @@
     width: 960px;
     min-height: 930px;
     margin: 0 auto 20px auto;
-    /* Steam background with subtle gradients */
     background: 
         radial-gradient(circle at 25% 25%, rgba(102, 192, 244, 0.08) 0%, transparent 60%),
         radial-gradient(circle at 75% 75%, rgba(164, 199, 231, 0.05) 0%, transparent 60%),
@@ -122,7 +116,6 @@
     box-shadow: 
         0 0 40px rgba(102, 192, 244, 0.15),
         inset 0 1px 0 rgba(199, 213, 224, 0.1);
-    /* Enable hardware acceleration */
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -141,14 +134,12 @@
     border-radius: 15px;
     background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
     border: 2px solid rgba(0, 212, 255, 0.3);
-    /* Performance optimizations */
     will-change: transform;
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
-/* Bottom container for controls and guide side by side */
 #vis1-bottom-container {
     position: absolute;
     bottom: 60px;
@@ -282,11 +273,6 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     text-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
-}
-
-@keyframes floatHint {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(3px); }
 }
 
 .vis1-chart-description {
@@ -443,12 +429,8 @@
     color: #333;
 }
 
-/* 3D Steam-themed visualization styles with performance optimizations */
-
 #vis1-chart-container .d3-3d {
-    /* No transitions to prevent flicker on hover boundaries */
     transition: none;
-    /* Enable hardware acceleration for 3D elements */
     will-change: transform;
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -460,18 +442,43 @@
     transform: translateZ(0) scale(1.02);
 }
 
-/* Optimize path elements with gaming enhancements */
 #vis1-chart-container path {
     shape-rendering: geometricPrecision;
     vector-effect: non-scaling-stroke;
-    /* Add subtle glow to all segments */
     filter: drop-shadow(0 0 2px rgba(0, 255, 255, 0.3));
 }
 
-/* Gaming UI enhancements */
 .vis1-detail-desc {
     color: rgba(0, 255, 136, 0.8);
     font-size: 12px;
     font-style: italic;
     font-family: 'Orbitron', monospace;
+}
+
+.vis1-select-container label,
+#vis1-genreSelect,
+.vis1-guide-title,
+.vis1-guide-item,
+.vis1-chart-description h3,
+.vis1-chart-description li,
+.vis1-game-details h2,
+.vis1-game-info h3,
+.vis1-game-info p,
+.vis1-placeholder,
+.vis1-detail-desc,
+.vis1-interaction-hint .hint-text {
+    font-family: 'gamepaused', sans-serif !important; 
+    font-weight: normal !important; 
+    letter-spacing: 1px;
+}
+
+.vis1-tooltip-2d {
+    font-family: 'gamepaused', sans-serif !important;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 10px 14px; 
+}
+
+#vis1-genreSelect option {
+    font-family: 'gamepaused', sans-serif;
 }
