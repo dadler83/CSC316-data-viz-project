@@ -14,16 +14,16 @@ export class Donut3D {
 
         // Steam-themed color palette (inspired by Steam's actual colors)
         const steamColors = [
-            '#66c0f4', // Steam light blue
-            '#1b2838', // Steam dark blue
-            '#2a475e', // Steam medium blue  
-            '#c7d5e0', // Steam light gray
-            '#a4c7e7', // Steam lighter blue
-            '#1e3a52', // Steam darker blue
-            '#8bb8d8', // Steam mid blue
-            '#4e79a7', // Steam blue variant
-            '#6fa8d0', // Steam blue-gray
-            '#5c8bb5'  // Steam steel blue
+            '#66c0f4',
+            '#1b2838',
+            '#2a475e',
+            '#c7d5e0',
+            '#a4c7e7',
+            '#1e3a52',
+            '#8bb8d8',
+            '#4e79a7',
+            '#6fa8d0',
+            '#5c8bb5'
         ];
 
         // Set default options with Steam theme
@@ -32,7 +32,7 @@ export class Donut3D {
             startRotationX: options.initialRotateX || 5 * Math.PI / 6,
             startRotationY: options.initialRotateY || 0,
             colors: options.colorScale || d3.scaleOrdinal(steamColors),
-            transitionTime: options.transition || 400, // Faster for better responsiveness
+            transitionTime: options.transition || 400,
             tiltAngle: options.fixedTilt || 5 * Math.PI / 6,
             tooltipFormat: options.tooltipFormat || ((d) => d.name || '')
         };
