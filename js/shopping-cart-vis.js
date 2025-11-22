@@ -128,7 +128,7 @@ class ShoppingCartVis {
         vis.shoppingCartX = vis.width - 110;
         vis.shoppingCartY = vis.height - 140;
         vis.shoppingCart = vis.svg.append("image")
-            .attr("xlink:href", "../images/shopping-cart-icon.png")
+            .attr("xlink:href", "images/shopping-cart-icon.png")
             .attr("x", vis.shoppingCartX)
             .attr("y", vis.shoppingCartY)
             .attr("width", 50)
@@ -477,20 +477,6 @@ class ShoppingCartVis {
 
                 vis.updateVis();
             })
-            .attr("rand", function (d, i) {
-                // Restore to original position
-                console.log("running rand")
-                const parent = this.parentNode;
-                const children = Array.from(parent.children);
-                const originalIndex = d.originalIndex;
-                const cartIndex = d.posInCart + vis.minDataIndex;
-
-                if (originalIndex !== undefined && originalIndex < children.length && !d.isInCart) {
-                    parent.insertBefore(this, children[originalIndex]);
-                } else if (d.isInCart && cartIndex !== undefined && cartIndex < children.length) {
-                    parent.insertBefore(this, children[cartIndex]);
-                }
-            })
             .transition()
             .duration(1000)
             .attr("transform", (d, i) => {
@@ -511,7 +497,7 @@ class ShoppingCartVis {
             // .append("rect")
             .append("image")
             // .merge(boxGroups)
-            .attr("xlink:href", "../images/snes-game-cart.png")
+            .attr("xlink:href", "images/snes-game-cart.png")
             .attr("width", vis.rectWidth)
             .attr("height", vis.rectHeight)
             .on("mouseover", function (e, d) {
