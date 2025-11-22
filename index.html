@@ -299,6 +299,16 @@
         </div>
     </div>
 
+    <div class="vis bg-image retro-game-grid d-flex justify-content-center align-items-center" style="padding: 60px 0; width: 100%;">
+        
+        <div class="start-button">
+            <button id="restart-btn" style="background-color: white; color: black; padding: 0 3rem;">
+                RESTART
+            </button>
+        </div>
+
+    </div>
+
     <!--  About Us  -->
     <div class="page vis bg-image retro-game-grid d-flex flex-column justify-content-center align-items-center">
         <div class="vis about-parent bg-image d-flex flex-column justify-content-center align-items-center">
@@ -330,6 +340,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('restart-btn').addEventListener('click', function() {
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        window.scrollTo(0, 0);
+
+        window.location.reload();
+    });
+</script>
 
 <!-- embedding JS libraries -->
 
