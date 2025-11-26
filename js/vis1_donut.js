@@ -1,5 +1,3 @@
-// vis1_donut.js - 3D Donut Chart for Vis 1: "audiences tend to gravitate toward just a few popular titles"
-// Uses global D3 library and imports donut components
 
 import { Donut3D } from './donut3d.js';
 import { Donut2D } from './donut2d.js';
