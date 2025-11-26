@@ -465,3 +465,87 @@ h1 {
         left: 5% !important;
     }
 }
+
+/* ===== GAME IMAGE STYLES ===== */
+
+/* Game thumbnail in ranking table */
+.game-thumbnail {
+    width: 60px;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.game-thumbnail:hover {
+    transform: scale(1.05);
+    border-color: #333;
+}
+
+.game-title-cell {
+    min-width: 250px;
+}
+
+/* Make sure table cells align properly with images */
+#games-table td {
+    vertical-align: middle;
+}
+
+/* Game detail image container */
+.game-detail-image-container {
+    width: 100%;
+    background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border-bottom: 3px solid #333;
+}
+
+.game-detail-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+}
+
+/* Update game detail tooltip max width to accommodate larger images */
+.game-detail-tooltip {
+    max-width: 500px !important;
+}
+
+/* Loading state for images (optional) */
+.game-image-loading {
+    width: 60px;
+    height: 28px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Mobile responsive adjustments for images */
+@media (max-width: 768px) {
+    .game-thumbnail {
+        width: 40px;
+    }
+    
+    .game-title-cell {
+        min-width: 180px;
+        font-size: 11px;
+    }
+    
+    .game-detail-image-container {
+        border-bottom: 2px solid #333;
+    }
+}
