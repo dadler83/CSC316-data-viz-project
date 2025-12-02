@@ -1,4 +1,10 @@
 
+// Import 3D library from CDN since it's not included in main D3
+import {
+    triangles3D,
+    planes3D
+} from 'https://cdn.skypack.dev/d3-3d@1.0.0';
+
 export class Donut3D {
     constructor(selector, options = {}) {
         // chart dimensions and margins
@@ -139,14 +145,14 @@ export class Donut3D {
             x: this.width/2, 
             y: this.height/2 - 80
         };
-        // projection generators (using global triangles3D and planes3D from index.html)
-        this.triangles3d = window.triangles3D()
+        // projection generators
+        this.triangles3d = triangles3D()
             .rotateX(this.options.startRotationX)
             .rotateY(this.options.startRotationY)
             .origin(origin)
             .scale(this.options.scale);
 
-        this.planes3d = window.planes3D()
+        this.planes3d = planes3D()
             .rotateX(this.options.startRotationX)
             .rotateY(this.options.startRotationY)
             .origin(origin)
