@@ -26,8 +26,8 @@ Group Course Project for Data Visualization on the web, using D3.
 
 ## Final Video
 
-- TODO
+- The video can be found [here]()
 
 ## Process Book
 
-- TODO
+- The process book can be found [here](https://docs.google.com/document/d/1-XNcaBEGXv4GfeO9kbMVjuwKu8okP5ls9RUDX1JRZFY/edit?usp=sharing), I will also be included as a pdf file in the final submission.
