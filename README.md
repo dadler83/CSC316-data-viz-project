@@ -26,7 +26,7 @@ Group Course Project for Data Visualization on the web, using D3.
 
 ## Final Video
 
-- The video can be found [here]()
+- The video can be found [here](https://youtu.be/dXQXf6YbPWY)
 
 ## Process Book
 
