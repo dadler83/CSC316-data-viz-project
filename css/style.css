@@ -202,3 +202,41 @@ h2.about {
 /* Images used */
 .retro-tv { background-image: url("../images/retro-tv.png"); filter: grayscale(25%); }
 .retro-game-grid { background-image: url("../images/retro-game-grid.jpg"); background-attachment: fixed; }
+
+.story-block {
+    max-width: 60rem;
+    margin: 4rem auto 2rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.35);   /* darker, more transparent overlay */
+    backdrop-filter: blur(6px);
+    border-radius: 1rem;
+    color: white;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.story-block h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'gamepaused';
+}
+
+.story-block p {
+    font-size: 1.15rem;
+    font-family: Arial, sans-serif;
+}
+
+.page {
+    background-color: transparent !important;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(120px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
