@@ -5,6 +5,7 @@ const q0 = document.getElementById('q0');
 const a0 = document.getElementById('q0-a0');
 const a1 = document.getElementById('q0-a1');
 const vis = document.getElementById('vis0');
+const vis0Page = document.querySelector('#vis0 .page');
 const gameboys = document.getElementById('gameboy-img');
 
 q0_submit.addEventListener('click', (e) => {
@@ -12,5 +13,6 @@ q0_submit.addEventListener('click', (e) => {
     a0.style.display = 'block';
     gameboys.style.display = 'none';
     vis.style.display = 'block';
-    window.scrollTo({ top: screen.height, behavior: 'instant' });
+    // Center user on the response paragraph above the stream graph
+    a0.scrollIntoView({ behavior: 'smooth', block: 'center' });
 })
